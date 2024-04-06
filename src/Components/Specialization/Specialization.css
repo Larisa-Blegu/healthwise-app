@@ -1,0 +1,114 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .autocomplete-wrapper {
+    width: 300px;
+    margin-top: 20px;
+    margin-left: 100px;
+  }
+  
+  .SpecializationDescription{
+    color: #666;
+    font-size: 20px;
+    line-height: 1.5;
+    margin-bottom: 40px; /* Spațierea între descriere și căutare */
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+
+  .right-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .right-container img {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+  }
+  .title_specialization {
+    font-family: "Arial", sans-serif;
+    font-size: 40px;
+    color: #4c657f;
+    font-weight: bold;
+    margin-left: 30px;
+    margin-top: 20px;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1); 
+  }
+  
+.AccordeonAutocomplete{
+  display: flex;
+  justify-content: space-between;
+}
+
+.AccordeonAutocomplete:last-child{
+  margin-right: 100px;
+
+}
+
+.accordeonSpecialization{
+  margin-top: 20px;
+
+
+}
+/* Stilizează numerele */
+.AccordionNumber {
+    font-weight: 500;
+    font-size: 20px;
+    color: #333; /* culoare text */
+     border: 2px solid #323481;
+    border-radius: 50%; /* pentru a face numerele încercuite */
+    padding:0 10px; /* spațiu în jurul numărului */
+  }
+  
+  /* Stilizează numele specializării */
+  .AccordionName {
+    font-weight: 500;
+    font-size: 20px;
+    margin-top: 3px;
+    padding-left: 15px;
+    color: #333; /* culoare text */
+    /* padding-left: 20px; */
+  }
+  
+  
+  .AccordionDetails{
+    background-color: #4c657f;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items:start;
+  }
+
+.specializationDetails{
+  width: 800px; /* setează lățimea la 700px */
+  margin: 0 auto;
+  margin-bottom: 10px;
+  
+}
+
+.AboutPhoto{
+  width: 25%;
+  height: 25%;
+  margin-top: 30px;
+}
+
+.AboutLink{
+  color: white;
+  font-size: 20px;
+position: absolute;
+}
+
+.AboutButton{
+  position: relative;
+  margin-left: 20px;
+}
+
+.AboutButton2{
+  position: relative;
+  margin-left: -30px;
+}

@@ -1,0 +1,41 @@
+.LocationDescription{
+    color: #666;
+    font-size: 20px;
+    line-height: 1.5;
+    margin-bottom: 40px; /* Spațierea între descriere și căutare */
+    margin-left: 25px;
+    margin-right: 20px;
+  }
+
+  .LocationContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+  }
+  
+  .CityItem {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    width: 400px;
+    color: black;
+    text-decoration:none ;
+
+  }
+  
+  .CityItem:link{
+    text-decoration: none;
+    color: inherit; /* Păstrează culoarea textului implicită */
+
+  }
+
+  .CityItem:hover {
+    background-color: #f0f0f0;
+  }
+  

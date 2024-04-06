@@ -1,0 +1,63 @@
+
+  /* Stilizare pentru meniul vertical */
+  .menu {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width:150px;
+    padding: 20px;
+  }
+  
+  .menu-item {
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+  .menu-item:hover {
+    background-color: #f0f0f0;
+  }
+
+  
+  .seg {
+    padding: 20px;
+    width:73.5%;
+    min-height:fit-content;
+  }
+  /* Stilizare pentru specializări și descrierea medicului */
+  
+  .contentMenu{
+    margin-left: 200px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    font-size: 10px;
+    margin-top: -120px;
+}
+
+.doctor_name{
+margin-left: 23px;
+padding-top: 20px;
+font-family: "Arial", sans-serif; /* Folosește o familie de fonturi clară și ușor de citit */
+font-size: 27px; /* Dimensiune mare pentru un impact vizual puternic */
+color: #4c657f;
+font-weight: bold;
+text-shadow: 2px 2px 4px rgba(44, 88, 87, 0.489); /* Ușoară umbrire pentru un efect de adâncime */
+
+}
+
+.DoctorImage{
+  text-align: right;  
+
+}
+
+.SpecializationImage{
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+}
+
+.List{
+  display: flex;
+}
