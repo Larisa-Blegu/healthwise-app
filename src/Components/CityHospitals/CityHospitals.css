@@ -21,12 +21,13 @@
   .buttons{
     background-color: #4c657f;
     text-align: center;
+    
   }
   .buttons button {
     margin: 0 70px; /* Adaugă spațiu între butoane */
     margin-top: 20px;
     color: white; /* Schimbă culoarea textului în alb */
-  font-family: Arial, sans-serif; /* Schimbă fontul butoanelor */
+    font-family: "Roboto", sans-serif;
   }
   
   .AccordionAddress{

@@ -14,12 +14,18 @@ import DoctorsHospital from './Components/DoctorsHospital/DoctorsHospital';
 import Appointment from './Components/Appointment/Appointment';
 import YourAppointments from './Components/YourAppointments/YourAppointments';
 import AppointmentForDoctor from './Components/AppointmentByDoctor/AppointmentForDoctor';
+import Review from './Components/Review/Review'; // Să presupunem că ai o pagină de recenzii numită ReviewPage
+import { PaymentSuccess } from './Components/PaymentSuccess/PaymentSuccess';
+import ResponsiveAppBar from './Components/Navigation/ResponsiveAppBar';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-      <Router>
+    <Router>
+      <div>
+              <ResponsiveAppBar />
+
         <Routes>
           <Route path='/login' element={<Login/>}/>
           <Route path='/register' element={<LoginSignup/>}/>
@@ -35,8 +41,11 @@ function App() {
           <Route path='/appointment/' element={<Appointment/>}/>
           <Route path='/yourAppointments/' element={<YourAppointments/>}/>
           <Route path='/appointmentByDoctor/' element={<AppointmentForDoctor/>}/>
+          <Route path="/review/:appointmentId" element={<Review/>} />
+          <Route path='/success' element={<PaymentSuccess/>}/>
 
         </Routes>
+      </div>
       </Router>
   );
 }

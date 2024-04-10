@@ -2,13 +2,6 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Stepper, Step, StepLabel, Button, TextField, MenuItem } from '@mui/material';
 import person_icon from '../Assets/person.png';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import EventIcon from '@mui/icons-material/Event';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import ReceiptIcon from '@mui/icons-material/Receipt';
@@ -20,6 +13,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { StaticDatePicker } from '@mui/x-date-pickers';
 import { DigitalClock } from '@mui/x-date-pickers/DigitalClock'; // Importați DigitalClock aici
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'; // Importați LocalizationProvider aici
+import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Drawer, Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 
 function AppointmentForDoctor() {
   const [activeStep, setActiveStep] = useState(0);
@@ -266,7 +260,7 @@ console.log(formData);
       </nav>
 
       {/* Title */}
-      <div className="title_specialization">Cerere programare la {selectedDoctor.fullName}, pentru procedura {selectedProcedure.name}</div>
+      <div className="title">Cerere programare la {selectedDoctor.fullName}, pentru procedura {selectedProcedure.name}</div>
 
       {/* Drawer */}
       <div className='drawer'>
@@ -384,30 +378,28 @@ console.log(formData);
             </TextField>
            
             <div>
-            <h3>Alege tipul de programare:</h3>
-            <div>
-                <input
-                    type="radio"
-                    id="programareFizica"
+            <FormControl component="fieldset">
+                  <FormLabel component="legend">Alege tipul de programare:</FormLabel>
+                  <RadioGroup
+                    row
+                    aria-label="tipProgramare"
                     name="tipProgramare"
-                    value="PHYSICAL"
-                    checked={formData.tipProgramare === "PHYSICAL"}
-                    onChange={(e) => handleChange({ target: { name: "tipProgramare", value: e.target.value } })}
-                />
-                <label htmlFor="programareFizica">Programare fizică</label>
+                    value={formData.tipProgramare}
+                    onChange={handleChange}
+                  >
+                    <FormControlLabel
+                      value="PHYSICAL"
+                      control={<Radio />}
+                      label="Programare fizică"
+                    />
+                    <FormControlLabel
+                      value="ONLINE"
+                      control={<Radio />}
+                      label="Programare online"
+                    />
+                  </RadioGroup>
+                </FormControl>
             </div>
-            <div>
-                <input
-                    type="radio"
-                    id="programareOnline"
-                    name="tipProgramare"
-                    value="ONLINE"
-                    checked={formData.tipProgramare === "ONLINE"}
-                    onChange={(e) => handleChange({ target: { name: "tipProgramare", value: e.target.value } })}
-                />
-                <label htmlFor="programareOnline">Programare online</label>
-            </div>
-        </div>
 
 
             {/* Restul câmpurilor de completat */}

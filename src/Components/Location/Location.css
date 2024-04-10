@@ -10,32 +10,29 @@
   .LocationContainer {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-decoration: none;
+    align-items: center;    
   }
   
   .CityItem {
-    border: 1px solid #ccc;
+    border: 3px solid #666;
     border-radius: 8px;
     padding: 10px;
     margin: 5px;
-    font-family: Arial, sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 16px;
     font-weight: bold;
     text-align: center;
+    text-decoration: none;
     width: 400px;
-    color: black;
-    text-decoration:none ;
-
+    color: white;
+    background-color: #4c657f;
   }
   
   .CityItem:link{
-    text-decoration: none;
-    color: inherit; /* Păstrează culoarea textului implicită */
-
+    color: black; /* Păstrează culoarea textului implicită */
   }
 
   .CityItem:hover {
-    background-color: #f0f0f0;
+    background-color: #333;
   }
   

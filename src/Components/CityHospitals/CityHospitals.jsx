@@ -57,7 +57,7 @@ function CityHospitals() {
         </ul>
       </nav>
 
-      <div className="mainTitle">Spitale {city}</div>
+      <div className="title">Spitale {city}</div>
       <div className="accordeonSpecialization">
         {locations.map((location, index) => (
           <div className="specializationDetails" key={index}>

@@ -15,6 +15,7 @@
   .SpecializationDescription{
     color: #666;
     font-size: 20px;
+    font-family: "Roboto", sans-serif;
     line-height: 1.5;
     margin-bottom: 40px; /* Spațierea între descriere și căutare */
     margin-left: 30px;
@@ -32,7 +33,7 @@
     margin-left: 10px;
   }
   .title_specialization {
-    font-family: "Arial", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 40px;
     color: #4c657f;
     font-weight: bold;
@@ -59,6 +60,7 @@
 /* Stilizează numerele */
 .AccordionNumber {
     font-weight: 500;
+    font-family: "Roboto", sans-serif;
     font-size: 20px;
     color: #333; /* culoare text */
      border: 2px solid #323481;
@@ -69,6 +71,7 @@
   /* Stilizează numele specializării */
   .AccordionName {
     font-weight: 500;
+    font-family: "Roboto", sans-serif;
     font-size: 20px;
     margin-top: 3px;
     padding-left: 15px;
@@ -99,10 +102,14 @@
 
 .AboutLink{
   color: white;
+  font-family: "Roboto", sans-serif;
+text-decoration: none;
   font-size: 20px;
 position: absolute;
 }
-
+.AboutLink:hover {
+  color: #333; /* sau orice altă culoare dorești */
+}
 .AboutButton{
   position: relative;
   margin-left: 20px;

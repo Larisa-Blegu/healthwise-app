@@ -1,0 +1,41 @@
+.review-input {
+    margin-top: 10px;
+    padding: 10px;
+    width: 300px;
+    height: 200px;
+    border: 1px solid #333;
+    background-color: white;
+    border-radius: 5px;
+    resize: none;
+    text-align: left;
+    vertical-align: top;
+    line-height: 1em;
+    overflow-wrap: break-word; /* Sau word-wrap: break-word; */
+}
+
+.box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.stars{
+    margin-top: 30px;
+    margin-left: 60px;
+    justify-content: center;
+    font-size: medium;
+}
+
+.save-button{
+    display: flex;
+    justify-content: right;
+    margin-top: 50px;
+}
+
+.save-button2{
+    display: flex;
+    justify-content: right;
+    margin-right: 11px;
+    margin-top: -68px;
+}

@@ -23,6 +23,7 @@
 .text{
     color: #16535e;
     font-size: 37px;
+    font-family: "Roboto", sans-serif;
     font-weight: 700;
 }
 
@@ -61,6 +62,7 @@
     border: none;
     outline: none;
     color: #797979;
+    font-family: "Roboto", sans-serif;
     font-size: 19px;
 }
 
@@ -81,6 +83,7 @@
     font-size: 19px;
     font-weight: 700;
     cursor: pointer;
+    font-family: "Roboto", sans-serif;
 }
 
 .submit-btn{
@@ -94,6 +97,7 @@
     border-radius: 50px;
     font-size: 19px;
     font-weight: 700;
+    font-family: "Roboto", sans-serif;
     cursor:pointer;
 }
 
@@ -101,7 +105,9 @@
     padding-left: 62px;
     margin-top: 27px;
     color: #797979;
-    font-size: 18px;;
+    font-size: 18px;
+    font-family: "Roboto", sans-serif;
+
 }
 
 .forgot-password span{

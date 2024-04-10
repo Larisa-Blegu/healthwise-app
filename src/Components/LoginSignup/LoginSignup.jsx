@@ -66,7 +66,7 @@ function LoginSignup() {
                 </div>
                 <div className="input">
                     <img src={email_icon} alt="" />
-                    <input type="email" placeholder='Email' 
+                    <input type="4e" placeholder='Email' 
                     value={email} onChange={(event) =>{
                          setEmail(event.target.value)}}
                     />

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './Main.css';
 import person_icon from '../Assets/person.png';
+import ResponsiveAppBar from '../ResponsiveAppBar.jsx' // Importă componenta AppBar
 
 function Main() {
   const [articles, setArticles] = useState([]);

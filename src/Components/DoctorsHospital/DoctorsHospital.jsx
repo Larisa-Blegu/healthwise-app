@@ -12,13 +12,14 @@ function DoctorsHospital() {
   useEffect(() => {
     axios.get(`http://localhost:8081/location/${id}`)
       .then(response => {
-
+        const location = response.data; // Extrage obiectul de locație din răspunsul API
         const doctors2 = response.data.doctors;
 
         doctors2.forEach(doctor => {
             doctor.image = "data:image/png;base64,"+doctor.image;
         });
         setDoctors(doctors2);
+        setHospitalName(location.hospital); // Setează numele spitalului
       })
       .catch(error => {
         console.error('Error fetching doctors:', error);
@@ -41,7 +42,7 @@ function DoctorsHospital() {
         </ul>
       </nav>
 
-      <div className="mainTitle">Medicii din {}</div>
+      <div className="title">Medicii din {hospitalName}</div>
       <div className="doctor-cards2">
   {doctors.map((doctor, index) => (
     <div key={index} className="doctor-card2">

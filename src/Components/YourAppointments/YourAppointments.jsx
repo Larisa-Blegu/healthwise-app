@@ -13,21 +13,25 @@ import TableContainer from '@mui/material/TableContainer';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import IconButton from '@mui/material/IconButton';
-import FirstPageIcon from '@mui/icons-material/FirstPage';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import LastPageIcon from '@mui/icons-material/LastPage';
 import { styled } from '@mui/material/styles';
 import TableHead from '@mui/material/TableHead';
+import axios from 'axios';
 import TablePaginationActions from './TablePaginationActions'; // Asigură-te că acesta este calea corectă către fișierul care conține componenta TablePaginationActions
+import './YourAppointments.css'; // Importarea fișierului CSS
+import { Link, useNavigate } from 'react-router-dom'; // importă useNavigate
 
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  borderBottom: 'none',
+  padding: '12px'
+}));
 
 function YourAppointments() {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [appointments, setAppointments] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const navigate = useNavigate(); // obține funcția de navigare
+  const [paymentCompleted, setPaymentCompleted] = useState(false);
 
   const toggleDrawer = (open) => () => {
     setOpenDrawer(open);
@@ -57,20 +61,51 @@ function YourAppointments() {
     setPage(0);
   };
 
-  const handlePaymentClick = (appointmentId) => {
+  const handlePaymentClick = (appointment) => {
     // Implementați logica pentru acțiunea de plată aici, pe baza appointmentId
-    console.log(`Payment button clicked for appointment with ID: ${appointmentId}`);
+    console.log(`Payment button clicked for appointment with ID: ${appointment}`);
   };
 
   const handleReviewClick = (appointmentId) => {
     // Implementați logica pentru acțiunea de review aici, pe baza appointmentId
-    console.log(`Review button clicked for appointment with ID: ${appointmentId}`);
+    navigate(`/review/${appointmentId}`);
   };
 
-  const isReviewButtonVisible = (status, date) => {
+  const isReviewButtonVisible = (status, reviewStatus, date) => {
     const currentDate = new Date();
-    return status === 'APPROVED' && new Date(date) < currentDate;
+    return status === 'APPROVED' && new Date(date) < currentDate && reviewStatus === 'FALSE';
   };
+
+  
+
+  async function makePayment(appointment) {
+    console.log(appointment.doctor.id);
+    try {
+      const response = await axios.post(`http://localhost:8081/appointment/payment/${appointment.id}`);
+  
+      if (response.status === 200) {
+        console.log(`Payment button clicked for appointment with ID: ${appointment.id}`);
+        if (response.data.payment_url) {
+          window.location.href = response.data.payment_url;
+        }
+        console.log(response.data.payment_url);
+  
+        // Actualizează statusul programării în 'APPROVED' în baza de date
+        const approvalResponse = await axios.post(`http://localhost:8081/appointment/status/${appointment.id}/APPROVED`);
+        if (approvalResponse.status === 200) {
+          console.log(`Status updated to APPROVED for appointment with ID: ${appointment.id}`);
+        } else {
+          console.error('Eroare la actualizarea statusului programării:', approvalResponse.statusText);
+        }
+      } else {
+        console.error('Eroare la trimiterea cererii de programare:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Eroare la trimiterea cererii de programare:', error);
+    }
+  }
+  
+
   return (
     <div>
       {/* Navigation */}
@@ -88,6 +123,11 @@ function YourAppointments() {
         </ul>
       </nav>
 
+
+
+      {/* Content */}
+      <div className="title_specialization">Programarile tale</div>
+      {/* Appointments Table */}
       {/* Drawer */}
       <div className='drawer'>
         <Button onClick={toggleDrawer(true)}>Deschide meniu</Button>
@@ -96,7 +136,7 @@ function YourAppointments() {
             <List>
               {[
                 { text: 'Realizează programare', icon: <EventIcon />, link: '/appointment' },
-                { text: 'Prograamrile tale', icon: <ListAltIcon />, link: '/yourAppointments' },
+                { text: 'Programarile tale', icon: <ListAltIcon />, link: '/yourAppointments' },
                 { text: 'Facturi', icon: <ReceiptIcon />, link: '/bills' },
                 { text: 'Informatii Utile', icon: <InfoIcon />, link: '/usefulInfo' }
               ].map((item, index) => (
@@ -114,41 +154,41 @@ function YourAppointments() {
         </Drawer>
       </div>
 
-      {/* Content */}
       <div className="content">
-        <h1>Your Appointments</h1>
-        {/* Appointments Table */}
-        <TableContainer component={Paper}>
-          <Table>
-          <TableHead>
-          <TableRow>
-            <TableCell>Data</TableCell>
-            <TableCell>Tip Programare</TableCell>
-            <TableCell>Doctor</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell>Plata</TableCell>
-            <TableCell>Review</TableCell>
 
-          </TableRow>
-        </TableHead>
-
+        <TableContainer component={Paper} className="appointments-table-container">
+          <Table className="appointments-table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Data</StyledTableCell>
+                <StyledTableCell>Tip Programare</StyledTableCell>
+                <StyledTableCell>Doctor</StyledTableCell>
+                <StyledTableCell>Status</StyledTableCell>
+                <StyledTableCell>Plata</StyledTableCell>
+                <StyledTableCell>Review</StyledTableCell>
+              </TableRow>
+            </TableHead>
             <TableBody>
               {appointments.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((appointment) => (
                 <TableRow key={appointment.id}>
-                  <TableCell>{appointment.date}</TableCell>
-                  <TableCell>{appointment.type}</TableCell>
-                  <TableCell>{appointment.doctor.fullName}</TableCell>
-                  <TableCell>{appointment.status}</TableCell>
-                  <TableCell>
-                    {appointment.status === 'WAITING_FOR_PAYMENT' && (
-                      <Button onClick={() => handlePaymentClick(appointment.id)}>Plata</Button>
+                  <StyledTableCell>{appointment.date}</StyledTableCell>
+                  <StyledTableCell>{appointment.type}</StyledTableCell>
+                  <StyledTableCell>{appointment.doctor.fullName}</StyledTableCell>
+                  <StyledTableCell>{appointment.status}</StyledTableCell>
+
+                  {!paymentCompleted && (
+                    <StyledTableCell>
+                      {appointment.status === 'WAITING_FOR_PAYMENT' && (
+                        <Button onClick={() => makePayment(appointment)}>Plata</Button>
+                      )}
+                    </StyledTableCell>
+                  )}
+
+                  <StyledTableCell>
+                    {isReviewButtonVisible(appointment.status, appointment.reviewStatus, appointment.date) && (
+                      <Button onClick={() => handleReviewClick(appointment.idF)}>Review</Button>
                     )}
-                  </TableCell> {/* Payment column */}
-                  <TableCell>
-                    {isReviewButtonVisible(appointment.status, appointment.date) && (
-                      <Button onClick={() => handleReviewClick(appointment.id)}>Review</Button>
-                    )}
-                  </TableCell>
+                  </StyledTableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -12,8 +12,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from 'react-router-dom';
 import specialization_icon from '../Assets/DespreSpecialization.png';
 import investigatii_icon from '../Assets/InvestigatiiSiProceduri.png';
-
-
 import './Specialization.css'; // Importați fișierul CSS
 
 const GroupHeader = styled('div')(({ theme }) => ({
