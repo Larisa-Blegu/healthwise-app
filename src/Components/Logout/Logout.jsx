@@ -18,7 +18,7 @@ export function compareObjects(obj1, obj2) {
 }
 
 export function logout() {
-//  Cookies.remove('token');
-  Cookies.remove('userId');
+  Cookies.remove('role');
+  localStorage.clear();
   window.location.href = '/login';
 }

@@ -14,13 +14,21 @@ import MenuItem from "@mui/material/MenuItem";
 import { useLocation } from "react-router-dom";
 import { logout } from "../Logout/Logout";
 import LoginIcon from '@mui/icons-material/Login';
+import "./ResponsiveAppBar.css"; // Importă fișierul CSS pentru stilizare personalizată
 
 const pages = ["Medici", "Specializari", "Locatii", "Programari"]; // Actualizat numele butoanelor
 const settings = ["Profile", "Logout"];
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({ show }) {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
+  const isRegisterPage = location.pathname === "/register";
+  const isProfilePage = location.pathname === "/profile";
+
+
+  const userId = localStorage.getItem('userId');
+  const email = localStorage.getItem('email');
+  const isLoggedIn = userId ? true : false;
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -41,7 +49,7 @@ function ResponsiveAppBar() {
   };
 
   const handleProfile = () => {
-    window.location.href = "/login";
+    window.location.href = "/profile";
   };
 
   const onClickFunctions = [
@@ -59,12 +67,13 @@ function ResponsiveAppBar() {
     },
   ];
 
-  if (isLoginPage) {
+  if (isLoginPage || isRegisterPage || !show) { // Verifică dacă nu trebuie să afișăm bara de navigare
+    console.log(show);
     return null;
   }
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: '#333' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -80,6 +89,7 @@ function ResponsiveAppBar() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
+              className: "app-bar-title",// Aplică clasa CSS personalizată pentru stilizarea textului
             }}
           >
             HEALTHWISE
@@ -127,7 +137,7 @@ function ResponsiveAppBar() {
                 key={page}
                 onClick={() => {
                   onClickFunctions[index]();
-                  
+
                 }}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
@@ -135,57 +145,68 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-          {/* <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Admin" src="aa" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{
-                mt: "45px",
-                "& .MuiPaper-root": {
-                  width: "180px",
-                },
-                "& .css-1uwgr7b-MuiTypography-root": {
-                  fontFamily: "Nunito Sans, sans-serif",
-                },
-              }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem
-                  key={setting}
-                  onClick={() => {
-                    switch (setting) {
+          {isLoggedIn && (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Admin" src={email ? null : "aa"}>
+                    {email ? email.charAt(0).toUpperCase() : ''}
+                  </Avatar>
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{
+                  mt: "45px",
+                  "& .MuiPaper-root": {
+                    width: "180px",
+                  },
+                  "& .css-1uwgr7b-MuiTypography-root": {
+                    fontFamily: "Roboto, sans-serif",
+                  },
+                }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem
+                    key={setting}
+                    onClick={() => {
+                      switch (setting) {
                         case "Logout":
-                        logout();
-                        break; 
-                      case "Profile":
-                        handleProfile();
-                        break;
-                      default:
-                        handleCloseUserMenu();
-                    }
-                  }}
-                >
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box> */}
+                          logout();
+                          break;
+                        case "Profile":
+                          handleProfile();
+                          break;
+                        default:
+                          handleCloseUserMenu();
+                      }
+                    }}
+                  >
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          )}
+          {!isLoggedIn && (
+            <Box sx={{ flexGrow: 0 }}>
+              <Button color="inherit" startIcon={<LoginIcon />} onClick={() => window.location.href = "/login"}>
+                Login
+              </Button>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

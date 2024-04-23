@@ -7,7 +7,7 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import InfoIcon from '@mui/icons-material/Info';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './AppointmentForDoctor.css';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { StaticDatePicker } from '@mui/x-date-pickers';
@@ -20,7 +20,7 @@ function AppointmentForDoctor() {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [location, setLocation] = useState();
   const [user, setUser] = useState();
-  
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: localStorage.firstName,
     lastName: localStorage.lastName,
@@ -40,9 +40,14 @@ function AppointmentForDoctor() {
   const [showClock, setShowClock] = useState(false); // State pentru afișarea ceasului digital
   const selectedDoctor = JSON.parse(localStorage.getItem('selectedDoctor'));
   const selectedProcedure = JSON.parse(localStorage.getItem('selectedProcedure'));
+  const isLoggedIn = localStorage.getItem('email');
+  const token = localStorage.getItem('token'); // Obține tokenul din local storage
 
     useEffect(() => {
-
+      if (!isLoggedIn) {
+        // Redirecționăm către pagina de login
+        navigate('/login');
+      } else {
       fetchUser(localStorage.userId);
 
           if (selectedDoctor && selectedProcedure) {
@@ -63,7 +68,7 @@ function AppointmentForDoctor() {
           setHospitals(hospitals);
           setCities(cities);
           
-
+        }
       }, []);
   
   const handleNext = () => {
@@ -104,7 +109,11 @@ function AppointmentForDoctor() {
   
     
     // Fetch hospitals based on selected city or show all hospitals if no city selected
-    fetch('http://localhost:8081/location/allLocations')
+    fetch('http://localhost:8081/location/allLocations', {
+      headers: {
+        Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+      }
+    })
       .then(response => response.json())
       .then(data => {
         let filteredHospitals = data.filter(location => location.hospital);
@@ -125,7 +134,11 @@ function AppointmentForDoctor() {
     }));
     fetchLocation(value);
     // Fetch hospitals based on selected city or show all hospitals if no city selected
-    fetch('http://localhost:8081/location/allLocations')
+    fetch('http://localhost:8081/location/allLocations', {
+      headers: {
+        Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+      }
+    })
       .then(response => response.json())
       .then(data => {
         let filteredCity = data.filter(location => location.city);
@@ -159,7 +172,11 @@ function AppointmentForDoctor() {
   const fetchLocation = async (hospital) => {
     var location;
       try {
-        const response = await axios.get(`http://localhost:8081/location/hospital/${hospital}`);
+        const response = await axios.get(`http://localhost:8081/location/hospital/${hospital}`, {
+          headers: {
+            Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+          }
+        });
         location=response.data;
       } catch (error) {
         console.error('Eroare la aducerea locatiei', error);
@@ -171,7 +188,11 @@ function AppointmentForDoctor() {
   const fetchUser = async (userID) => {
     var user;
       try {
-        const response = await axios.get(`http://localhost:8081/user/${userID}`);
+        const response = await axios.get(`http://localhost:8081/user/${userID}`, {
+          headers: {
+            Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+          }
+        });
         user=response.data;
       } catch (error) {
         console.error('Eroare la aducerea locatiei', error);
@@ -183,6 +204,10 @@ function AppointmentForDoctor() {
 
     try {
         const response = await axios.post("http://localhost:8081/appointment", {
+          headers: {
+            Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+          }
+        }, {
             date: finalDate,
             type: tipProgramare,
             doctor: doctor, // Presupunând că doctor este un obiect cu un câmp id
@@ -244,20 +269,7 @@ console.log(formData);
 
   return (
     <div>
-      {/* Navigation */}
-      <nav>
-        <ul>
-          <li><a href="/">Pagina principală</a></li>
-          <li><a href="/doctor">Medici</a></li>
-          <li><a href="/specialization">Specializări</a></li>
-          <li><a href="/location">Locații</a></li>
-          <li><a href="/appointment">Programări</a></li>
-          <div className="right-container">
-            <li><a href="/login">Login</a></li>
-            <li><img src={person_icon} alt="User" className="user-icon" /></li>
-          </div>
-        </ul>
-      </nav>
+
 
       {/* Title */}
       <div className="title">Cerere programare la {selectedDoctor.fullName}, pentru procedura {selectedProcedure.name}</div>

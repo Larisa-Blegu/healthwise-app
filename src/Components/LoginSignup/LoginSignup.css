@@ -4,10 +4,11 @@
     margin: auto;
     margin-top: 30px; 
     margin-bottom: 50px; 
-    background: #fff;
     width: 600px;
     height: 600px;
     padding: 20px;
+    border: 2px solid #4c657f; /* Adaugă o linie gri */
+    border-radius: 10px; /* Opțional: adaugă o mică încadrare rotunjită */
 }
 
 .header{

@@ -1,0 +1,49 @@
+/* YourAppointments.css */
+
+.content {
+    margin-top: 20px;
+    width: 1000px;
+    margin-left: 270px;
+}
+  
+  .content h1 {
+    margin-bottom: 20px;
+  }
+  
+  .right-container {
+    position: absolute;
+    right: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+ 
+  /* Stilizare pentru tabel */
+  .appointments-table {
+    width: 100%;
+  }
+  
+  .appointments-table th,
+  .appointments-table td {
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .appointments-table th {
+    font-weight: bold;
+    background-color: #f2f2f2;
+  }
+  
+  
+  .appointments-table tbody tr:hover {
+    background-color: #ddd;
+  }
+  
+  .bill-button-container {
+    display: flex;
+    justify-content:space-between;
+}
+
+.price-text{
+    margin-top: 20px;
+}

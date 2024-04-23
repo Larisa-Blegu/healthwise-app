@@ -32,6 +32,7 @@ function YourAppointments() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const navigate = useNavigate(); // obține funcția de navigare
   const [paymentCompleted, setPaymentCompleted] = useState(false);
+  const token = localStorage.getItem('token'); // Obține tokenul din local storage
 
   const toggleDrawer = (open) => () => {
     setOpenDrawer(open);
@@ -44,7 +45,11 @@ function YourAppointments() {
   }, []);
 
   const fetchAppointments = (userId) => {
-    fetch(`http://localhost:8081/appointment/user/${userId}`)
+    fetch(`http://localhost:8081/appointment/user/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+      }
+    })
       .then(response => response.json())
       .then(data => {
         setAppointments(data);
@@ -80,8 +85,14 @@ function YourAppointments() {
 
   async function makePayment(appointment) {
     console.log(appointment.doctor.id);
+    console.log(token);
+    console.log(appointment.id);
     try {
-      const response = await axios.post(`http://localhost:8081/appointment/payment/${appointment.id}`);
+      const response = await axios.post(`http://localhost:8081/appointment/payment/${appointment.id}`, {}, {
+        headers: {
+            Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+        }
+    });
   
       if (response.status === 200) {
         console.log(`Payment button clicked for appointment with ID: ${appointment.id}`);
@@ -90,13 +101,7 @@ function YourAppointments() {
         }
         console.log(response.data.payment_url);
   
-        // Actualizează statusul programării în 'APPROVED' în baza de date
-        const approvalResponse = await axios.post(`http://localhost:8081/appointment/status/${appointment.id}/APPROVED`);
-        if (approvalResponse.status === 200) {
-          console.log(`Status updated to APPROVED for appointment with ID: ${appointment.id}`);
-        } else {
-          console.error('Eroare la actualizarea statusului programării:', approvalResponse.statusText);
-        }
+        
       } else {
         console.error('Eroare la trimiterea cererii de programare:', response.statusText);
       }
@@ -108,23 +113,6 @@ function YourAppointments() {
 
   return (
     <div>
-      {/* Navigation */}
-      <nav>
-        <ul>
-          <li><a href="/">Pagina principală</a></li>
-          <li><a href="/doctor">Medici</a></li>
-          <li><a href="/specialization">Specializări</a></li>
-          <li><a href="/location">Locații</a></li>
-          <li><a href="/appointment">Programări</a></li>
-          <div className="right-container">
-            <li><a href="/login">Login</a></li>
-            <li><img src={person_icon} alt="User" className="user-icon" /></li>
-          </div>
-        </ul>
-      </nav>
-
-
-
       {/* Content */}
       <div className="title_specialization">Programarile tale</div>
       {/* Appointments Table */}
@@ -137,7 +125,7 @@ function YourAppointments() {
               {[
                 { text: 'Realizează programare', icon: <EventIcon />, link: '/appointment' },
                 { text: 'Programarile tale', icon: <ListAltIcon />, link: '/yourAppointments' },
-                { text: 'Facturi', icon: <ReceiptIcon />, link: '/bills' },
+                { text: 'Facturi', icon: <ReceiptIcon />, link: '/bill' },
                 { text: 'Informatii Utile', icon: <InfoIcon />, link: '/usefulInfo' }
               ].map((item, index) => (
                 <ListItem key={item.text} disablePadding>
@@ -186,7 +174,7 @@ function YourAppointments() {
 
                   <StyledTableCell>
                     {isReviewButtonVisible(appointment.status, appointment.reviewStatus, appointment.date) && (
-                      <Button onClick={() => handleReviewClick(appointment.idF)}>Review</Button>
+                      <Button onClick={() => handleReviewClick(appointment.id)}>Review</Button>
                     )}
                   </StyledTableCell>
                 </TableRow>

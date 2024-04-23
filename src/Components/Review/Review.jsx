@@ -11,6 +11,7 @@ import './Review.css';
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
 import { Link, useNavigate } from 'react-router-dom'; // importă useNavigate
+import { Token } from '@mui/icons-material';
 
 function Review() {
     const { appointmentId } = useParams();
@@ -21,6 +22,7 @@ function Review() {
     const [rating, setRating] = useState('');
     const [comment, setComment] = useState('');
     const navigate = useNavigate();
+    const token = localStorage.getItem('token'); // Obține tokenul din local storage
     const labels = {
         0.5: 'Useless',
         1: 'Useless+',
@@ -38,11 +40,19 @@ function Review() {
     useEffect(() => {
         const fetchDoctorName = async () => {
             try {
-                const appointmentResponse = await axios.get(`http://localhost:8081/appointment/${appointmentId}`);
+                const appointmentResponse = await axios.get(`http://localhost:8081/appointment/${appointmentId}`, {
+                    headers: {
+                      Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+                    }
+                  });
                 const appointment = appointmentResponse.data;
 
                 const doctorId = appointment.doctor.id;
-                const doctorResponse = await axios.get(`http://localhost:8081/doctor/${doctorId}`);
+                const doctorResponse = await axios.get(`http://localhost:8081/doctor/${doctorId}`, {
+                    headers: {
+                      Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+                    }
+                  });
                 const doctor = doctorResponse.data;
                 setDoctor(doctor);
                 setDoctorName(doctor.fullName);
@@ -69,15 +79,24 @@ function Review() {
     }
     async function save() {
         if (value) {
+            console.log(token);
             try {
-                const response = await axios.post("http://localhost:8081/review", {
-                    grade: value,
+                const response = await axios.post("http://localhost:8081/review",  {
                     text: comment,
+                    grade: value,
                     doctor: doctor
-                });
+                },{
+                    headers: {
+                      Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+                    }
+                  });
                 if (response.status === 200) {
                     console.log('Cererea de programare a fost trimisă cu succes!');
-                    const reviewStatus = await axios.post(`http://localhost:8081/appointment/reviewStatus/${appointmentId}/TRUE`);
+                    const reviewStatus = await axios.post(`http://localhost:8081/appointment/reviewStatus/${appointmentId}/TRUE`, {}, {
+                    headers: {
+                        Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+                    }
+                });
                     navigate('/yourAppointments');
                     // Aici puteți adăuga orice alte acțiuni necesare după ce cererea a fost trimisă cu succes
                 } else {
@@ -91,6 +110,7 @@ function Review() {
             alert("Selecteaza rating");
         }
     };
+
     const handleNextClick = () => {
         if (value) {
             setShowCommentField(true);
@@ -105,19 +125,7 @@ function Review() {
 
     return (
         <div>
-            <nav>
-                <ul>
-                    <li><a href="/">Pagina principală</a></li>
-                    <li><a href="/doctor">Medici</a></li>
-                    <li><a href="/specialization">Specializări</a></li>
-                    <li><a href="/location">Locații</a></li>
-                    <li><a href="/appointment">Programări</a></li>
-                    <div className="right-container">
-                        <li><a href="/login">Login</a></li>
-                        <li><img src={person_icon} alt="User" className="user-icon" /></li>
-                    </div>
-                </ul>
-            </nav>
+
             <div className='title'>Review pentru {doctorName}</div>
             <p className='SpecializationDescription'>Împărtășiți-vă recenziile și părerea cu privire la consultațiile medicale pentru a ajuta alții să ia decizii informate și să găsească sprijin și inspirație în comunitatea noastră dedicată sănătății. Prin contribuția ta, poți aduce claritate, creând un mediu în care fiecare voce contează și fiecare poveste poate inspira și ajuta pe alții să se îngrijească mai bine de sănătatea lor.</p>
             <div className='box'>

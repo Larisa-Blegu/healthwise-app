@@ -24,6 +24,7 @@ function Doctor() {
 
   
   useEffect(() => {
+    
     // Încărcați medicii din baza de date sau de la un API
         axios.get('http://localhost:8081/doctor/allDoctors')
         .then(response => {
@@ -73,6 +74,7 @@ function Doctor() {
           [doctor.id]: average
         }));
       });
+      console.log(reviews);
       handleReviewCounter(doctor.id).then(counter => {
         setReviewCounter(prevState => ({
           ...prevState,
@@ -226,20 +228,7 @@ function Doctor() {
 
   return (
     <div>
-      {/* Navigare */}
-      <nav>
-        <ul>
-          <li><a href="/">Pagina principală</a></li>
-          <li><a href="/doctor">Medici</a></li>
-          <li><a href="/specialization">Specializări</a></li>
-          <li><a href="/location">Locații</a></li>
-          <li><a href="/appointment">Programări</a></li>
-          <div className="right-container">
-            <li><a href="/login">Login</a></li>
-            <li><img src={person_icon} alt="User" className="user-icon" /></li>
-          </div>
-        </ul>
-      </nav>
+
       {/* Titlu și descriere */}
       <div className="doctor-header">
         <h3>Medici</h3>

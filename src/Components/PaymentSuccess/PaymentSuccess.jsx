@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useEffect} from "react";
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import {green} from '@mui/material/colors';
-import { Link, useNavigate } from 'react-router-dom'; // importă useNavigate
+import { Link, useNavigate ,useParams} from 'react-router-dom'; // importă useNavigate
 import {Button, Card} from '@mui/material';
+import axios from 'axios';
 
 export const PaymentSuccess = () => {
 
     const navigate = useNavigate();
+    const { id } = useParams();
+    const token = localStorage.getItem('token'); // Obține tokenul din local storage
+
+
+    useEffect(() => {
+        // Actualizează statusul programării în 'APPROVED' în baza de date
+        const approvalResponse = axios.post(`http://localhost:8081/appointment/status/${id}/APPROVED`, {}, {
+          headers: {
+              Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+          }
+      });
+        if (approvalResponse.status === 200) {
+          console.log(`Status updated to APPROVED for appointment with ID: ${id}`);
+        } else {
+          console.error('Eroare la actualizarea statusului programării:', approvalResponse.statusText);
+        }
+      }, [id]);
+    
 
     return (
         <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 5px' }}>

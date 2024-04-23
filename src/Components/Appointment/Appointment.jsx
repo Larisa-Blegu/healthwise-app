@@ -7,7 +7,7 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import InfoIcon from '@mui/icons-material/Info';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Appointment.css';
 import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Drawer, Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -20,7 +20,9 @@ function Appointment() {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [location, setLocation] = useState();
   const [user, setUser] = useState();
-
+  const token = localStorage.getItem('token'); // Obține tokenul din local storage
+  const isLoggedIn = localStorage.getItem('email');
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     firstName: localStorage.firstName,
@@ -41,12 +43,21 @@ function Appointment() {
   const [showClock, setShowClock] = useState(false); // State pentru afișarea ceasului digital
 
   useEffect(() => {
+
+    if (!isLoggedIn) {
+      // Redirecționăm către pagina de login
+      navigate('/login');
+    } else {
     const selectedDoctor = JSON.parse(localStorage.getItem('selectedDoctor'));
     const selectedProcedure = JSON.parse(localStorage.getItem('selectedProcedure'));
-    console.log(selectedDoctor.fullName);
+   // console.log(selectedDoctor.fullName);
     fetchUser(localStorage.userId);
     // Fetch cities from API
-    fetch('http://localhost:8081/location/allLocations')
+    fetch('http://localhost:8081/location/allLocations', {
+      headers: {
+        Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+      }
+    })
       .then(response => response.json())
       .then(data => {
         // Get unique cities using Set
@@ -58,7 +69,11 @@ function Appointment() {
       })
       .catch(error => console.error('Error fetching cities:', error));
 
-    fetch('http://localhost:8081/doctor/allDoctors')
+    fetch('http://localhost:8081/doctor/allDoctors', {
+      headers: {
+        Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+      }
+    })
       .then(response => response.json())
       .then(data => {
         // Extract doctor names from the response
@@ -67,7 +82,11 @@ function Appointment() {
       })
       .catch(error => console.error('Error fetching doctors:', error));
 
-    fetch('http://localhost:8081/medicalProcedure/allProcedures')
+    fetch('http://localhost:8081/medicalProcedure/allProcedures', {
+      headers: {
+        Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+      }
+    })
       .then(response => response.json())
       .then(data => {
         // Extract procedure names from the response
@@ -86,7 +105,7 @@ function Appointment() {
       setDoctors([selectedDoctor]);
       console.log(formData);
     }
-
+    }
   }, []);
 
   const handleNext = () => {
@@ -138,7 +157,11 @@ function Appointment() {
 
 
     // Fetch hospitals based on selected city or show all hospitals if no city selected
-    fetch('http://localhost:8081/location/allLocations')
+    fetch('http://localhost:8081/location/allLocations', {
+      headers: {
+        Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+      }
+    })
       .then(response => response.json())
       .then(data => {
         let filteredHospitals = data.filter(location => location.hospital);
@@ -152,7 +175,11 @@ function Appointment() {
 
     // If no city selected, fetch all hospitals
     if (!value) {
-      fetch('http://localhost:8081/location/allLocations')
+      fetch('http://localhost:8081/location/allLocations', {
+        headers: {
+          Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+        }
+      })
         .then(response => response.json())
         .then(data => {
           const hospitals = data
@@ -173,7 +200,11 @@ function Appointment() {
     }));
     fetchLocation(value);
     // Fetch hospitals based on selected city or show all hospitals if no city selected
-    fetch('http://localhost:8081/location/allLocations')
+    fetch('http://localhost:8081/location/allLocations', {
+      headers: {
+        Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+      }
+    })
       .then(response => response.json())
       .then(data => {
         let filteredCity = data.filter(location => location.city);
@@ -194,7 +225,11 @@ function Appointment() {
 
     // If no city selected, fetch all hospitals
     if (!value) {
-      fetch('http://localhost:8081/location/allLocations')
+      fetch('http://localhost:8081/location/allLocations', {
+        headers: {
+          Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+        }
+      })
         .then(response => response.json())
         .then(data => {
           const cities = data
@@ -222,7 +257,11 @@ function Appointment() {
     }
     if (value.specializations) {
 
-      fetch('http://localhost:8081/medicalProcedure/allProcedures')
+      fetch('http://localhost:8081/medicalProcedure/allProcedures', {
+        headers: {
+          Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+        }
+      })
         .then(response => response.json())
         .then(data => {
           // Extract procedure names from the response
@@ -236,11 +275,7 @@ function Appointment() {
           setProcedures(flatNewProcedures);
         })
         .catch(error => console.error('Error fetching procedures:', error));
-
-
-
     }
-
   };
 
   const handleChangeProcedure = e => {
@@ -272,7 +307,11 @@ function Appointment() {
   const fetchLocation = async (hospital) => {
     var location;
     try {
-      const response = await axios.get(`http://localhost:8081/location/hospital/${hospital}`);
+      const response = await axios.get(`http://localhost:8081/location/hospital/${hospital}`, {
+        headers: {
+          Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+        }
+      });
       location = response.data;
     } catch (error) {
       console.error('Eroare la aducerea locatiei', error);
@@ -284,7 +323,11 @@ function Appointment() {
   const fetchUser = async (userID) => {
     var user;
     try {
-      const response = await axios.get(`http://localhost:8081/user/${userID}`);
+      const response = await axios.get(`http://localhost:8081/user/${userID}`, {
+        headers: {
+          Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+        }
+      });
       user = response.data;
     } catch (error) {
       console.error('Eroare la aducerea locatiei', error);
@@ -304,6 +347,10 @@ function Appointment() {
         user: user, // Presupunând că avem id-ul utilizatorului salvat în localStorage
         reviewStatus: "FALSE",
         status: "PENDING"
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+        }
       });
       if (response.status === 200) {
         console.log('Cererea de programare a fost trimisă cu succes!');
@@ -352,57 +399,16 @@ function Appointment() {
         reviewStatus: "FALSE",
         status: "PENDING"
       };
-
       save(doctor, location[0], medicalProcedure, tipProgramare, finalDate);
       setActiveStep(prevActiveStep => prevActiveStep + 1);
-
-
-      // Trimitem solicitarea către API
-      //     fetch('http://localhost:8081/appointment', {
-      //         method: 'POST',
-      //         headers: {
-      //             'Content-Type': 'application/json',
-      //         },
-      //         body: JSON.stringify(dataToSend),
-      //     })
-      //     .then(response => {
-      //         if (response.ok) {
-      //             // Dacă răspunsul este OK, afișăm un mesaj de succes sau întreprindem alte acțiuni necesare
-      //             console.log('Cererea de programare a fost trimisă cu succes!');
-      //             // Aici puteți adăuga orice alte acțiuni necesare după ce cererea a fost trimisă cu succes
-      //         } else {
-      //             // Dacă răspunsul nu este OK, ar trebui să tratăm eroarea corespunzător
-      //             console.error('Eroare la trimiterea cererii de programare:', response.statusText);
-      //         }
-      //     })
-      //     .catch(error => {
-      //         console.error('Eroare la trimiterea cererii de programare:', error);
-      //     });
-      // } else {
-      //     // Afișăm un mesaj de eroare dacă nu toate câmpurile sunt completate/selectate
-      //     alert('Te rog completează toate câmpurile înainte de a trimite cererea de programare.');
-      // }
-
     }
   };
 
 
+
   return (
     <div>
-      {/* Navigation */}
-      <nav>
-        <ul>
-          <li><a href="/">Pagina principală</a></li>
-          <li><a href="/doctor">Medici</a></li>
-          <li><a href="/specialization">Specializări</a></li>
-          <li><a href="/location">Locații</a></li>
-          <li><a href="/appointment">Programări</a></li>
-          <div className="right-container">
-            <li><a href="/login">Login</a></li>
-            <li><img src={person_icon} alt="User" className="user-icon" /></li>
-          </div>
-        </ul>
-      </nav>
+
 
       {/* Title */}
       <div className="title">Programari</div>
@@ -417,7 +423,7 @@ function Appointment() {
               {[
                 { text: 'Realizează programare', icon: <EventIcon />, link: '/appointment' },
                 { text: 'Programarile tale', icon: <ListAltIcon />, link: '/yourAppointments' },
-                { text: 'Facturi', icon: <ReceiptIcon />, link: '/bills' },
+                { text: 'Facturi', icon: <ReceiptIcon />, link: '/bill' },
                 { text: 'Informatii Utile', icon: <InfoIcon />, link: '/usefulInfo' }
               ].map((item, index) => (
                 <ListItem key={item.text} disablePadding>

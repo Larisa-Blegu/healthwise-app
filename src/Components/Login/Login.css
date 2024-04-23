@@ -4,11 +4,11 @@
     margin: auto;
     margin-top: 30px; 
     margin-bottom: 50px; 
-    background: #fdffff;
     width: 600px;
     height: 400px;
     padding: 20px;
-}
+    border: 2px solid #4c657f; /* Adaugă o linie gri */
+    border-radius: 10px; /* Opțional: adaugă o mică încadrare rotunjită */}
 
 .header{
     display: flex;
@@ -47,13 +47,16 @@
     margin: auto;
     width:  480px;
     height: 60px;
-    background: #eaeaea;
+    background: #fdfbfb;
     border-radius: 6px;
+    padding-left: 40px; /* Adaugă un padding la stânga de 10px */
+
 }
 
 .input img{
     margin:0px 30px;
 }
+
 
 .input input{
     height:  50px;
@@ -64,6 +67,10 @@
     color: #797979;
     font-family: "Roboto", sans-serif;
     font-size: 19px;
+}
+
+.icon{
+    margin-right: 15px;
 }
 
 .submit-container{
@@ -114,4 +121,3 @@
     color: #4c00b4;
     cursor: pointer;
 }
-

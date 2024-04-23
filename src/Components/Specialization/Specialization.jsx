@@ -71,19 +71,7 @@ function Specialization() {
 
   return (
     <div>
-      <nav>
-        <ul>
-          <li><a href="/">Pagina principală</a></li>
-          <li><a href="/doctor">Medici</a></li>
-          <li><a href="/specialization">Specializări</a></li>
-          <li><a href="/location">Locații</a></li>
-          <li><a href="/appointment">Programări</a></li>
-          <div className="right-container">
-            <li><a href="/login">Login</a></li>
-            <li><img src={person_icon} alt="User" className="user-icon" /></li>
-          </div>
-        </ul>
-      </nav>
+
       <div className="title_specialization">Specializari</div>
       <p className='SpecializationDescription'>Fie că sunteți în căutarea unui specialist pentru o afecțiune specifică sau doriți să înțelegeți mai bine opțiunile disponibile, pagina noastră despre specializări medicale vă ajută să faceți alegeri informate în ceea ce privește îngrijirea sănătății dumneavoastră.</p>
      
