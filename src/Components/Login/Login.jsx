@@ -26,11 +26,11 @@ function Login({onLogin}) {
             onLogin(response.data.role);
             if (response.data.role === 'ADMIN') {
                 navigate('/dashboard');
-              }else if ( response.data.role === 'CLIENT'){
+            } else if (response.data.role === 'CLIENT') {
                 navigate('/');
-              }
-
-            // Dacă autentificarea este reușită, poți implementa următorii pași aici, cum ar fi navigarea către pagina principală sau gestionarea token-ului JWT primit.
+            } else if (response.data.role === 'MEDIC') {
+                navigate('/doctorDashboard');
+            }
         } catch (err) {
             toast.error("Invalid email or password.");
             console.error(err);
@@ -57,7 +57,7 @@ function Login({onLogin}) {
             <ToastContainer />
 
             <div className="header">
-                <div className="text">Login</div>
+                <div className="titleLogin">Login</div>
                 <div className="underline"></div>
             </div>
             <div className="inputs">

@@ -28,7 +28,7 @@ function ManagePrice() {
         {
             label: 'Nume Doctor',
             name: 'doctorName',
-            type: 'select',
+            type: 'selectDoctor',
             defaultValue: doctors.length > 0 ? doctors[0].fullName : '',
             options: doctors.map(doctor => doctor.fullName)
         },
@@ -65,6 +65,7 @@ function ManagePrice() {
                 }
             });
             console.log(response.data);
+            
             return response.data;
         } catch (error) {
             console.error('Error fetching specializations: ', error);
@@ -139,16 +140,12 @@ function ManagePrice() {
 
             const procedure = responseProcedure.data;
 
-            if (!responseProcedure.data || !responseProcedure.data.name) {
-                console.error('Procedure not found or missing name');
-                return;
-            }
-
             const updatedData = {
                 price: formData.price,
                 doctor: doctor[0],
-                procedure: procedure[0],
+                medicalProcedure: procedure[0],
             };
+            console.log(updatedData);
 
             const success = await addRow('http://localhost:8081/price', updatedData);
             if (success) {

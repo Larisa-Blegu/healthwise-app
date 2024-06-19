@@ -51,6 +51,7 @@ function ManageUser() {
       label: 'Email',
       name: 'email',
       type: 'text',
+      
     },
     {
       label: 'Parola',
@@ -122,7 +123,7 @@ function ManageUser() {
 
   const handleSaveNewUser = async (formData) => {
     try {
-      const success = await addRow('http://localhost:8081/user', formData);
+      const success = await axios.post('http://localhost:8081/user/register', formData);
       if (success) {
         // Re-fetch users or update local state
         fetchUsers();

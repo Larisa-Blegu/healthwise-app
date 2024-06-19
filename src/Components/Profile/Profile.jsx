@@ -3,30 +3,33 @@ import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography'; // Adaugă importul pentru Typography
 import AlertDialogSlide from '../Management/AlertDialogSlide'; // Asigură-te că calea este corectă
+import axios from 'axios';
+import { logout } from '../Logout/Logout';
+import { compareObjects } from '../Logout/Logout';
 
 function Profile() {
     const [userData, setUserData] = useState({
-        nume: localStorage.getItem('firstName') || '',
-        prenume: localStorage.getItem('lastName') || '',
+        id: localStorage.getItem('userId') || '',
+        firstName: localStorage.getItem('firstName') || '',
+        lastName: localStorage.getItem('lastName') || '',
         email: localStorage.getItem('email') || '',
-        telefon: localStorage.getItem('phoneNumber') || ''
+        phoneNumber: localStorage.getItem('phoneNumber') || ''
     });
 
     const [openDialog, setOpenDialog] = useState(false);
 
     useEffect(() => {
-        // Verifică dacă există date despre utilizator în localStorage
         const savedUserData = {
-            nume: localStorage.getItem('firstName') || '',
-            prenume: localStorage.getItem('lastName') || '',
+            id: localStorage.getItem('userId') || '',
+            firstName: localStorage.getItem('firstName') || '',
+            lastName: localStorage.getItem('lastName') || '',
             email: localStorage.getItem('email') || '',
-            telefon: localStorage.getItem('phoneNumber') || ''
+            phoneNumber: localStorage.getItem('phoneNumber') || ''
         };
-        // Dacă există, setează datele utilizatorului în starea componentei
-        console.log(savedUserData);
         setUserData(savedUserData);
-    }, []); // Efectul se va rula o singură dată, la încărcarea componentei
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -44,40 +47,57 @@ function Profile() {
         setOpenDialog(false);
     };
 
-    const handleOk = () => {
-        // Implementează funcționalitatea pentru a salva modificările aici
-        console.log("Modificările au fost salvate:", userData);
-        // Salvează datele utilizatorului în localStorage pentru a le putea accesa mai târziu
-        localStorage.setItem('firstName', userData.nume);
-        localStorage.setItem('lastName', userData.prenume);
-        localStorage.setItem('email', userData.email);
-        localStorage.setItem('phoneNumber', userData.telefon);
-        setOpenDialog(false);
+    const handleOk = async () => {
+        console.log(userData);
+        try {
+            const response = await axios.put('http://localhost:8081/user', userData, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            console.log("Modificările au fost salvate:", response.data);
+             // Actualizează localStorage cu noile date
+            localStorage.setItem('firstName', userData.firstName);
+            localStorage.setItem('lastName', userData.lastName);
+            localStorage.setItem('email', userData.email);
+            localStorage.setItem('phoneNumber', userData.phoneNumber);
+            if (userData.email !== localStorage.getItem('email')) {
+                logout();
+            } else {
+                setOpenDialog(false);
+            }
+        } catch (error) {
+            console.error('Eroare la salvarea modificărilor:', error);
+        }
     };
 
     return (
         <div className='title_specialization'>
-            Setari de profil
+            Setări de profil
             <div style={{ border: '2px solid #4c657f', padding: '20px', borderRadius: '10px', width: '700px', margin: 'auto' }}>
                 <Grid container spacing={2}>
                     <Grid item xs={4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end', marginBottom: '100px', paddingRight: '20px' }}>
-                        <div>
+                        <div style={{ border: '1px solid #4c657f', padding: '20px', borderRadius: '10px', margin: 'auto' }}>
                             <Avatar
                                 alt="Avatar"
                                 src={userData.email ? null : "aa"}
-                                sx={{ width: 120, height: 120 }} // Ajustează dimensiunile avatarului
+                                sx={{ width: 150, height: 150 }} // Ajustează dimensiunile avatarului
                             >
                                 {userData.email ? userData.email.charAt(0).toUpperCase() : ''}
                             </Avatar>
+                            <Typography variant="body1" align="center" style={{ marginTop: '10px' }}>
+                                {userData.lastName} {userData.firstName}
+                            </Typography>
                         </div>
                     </Grid>
+
                     <Grid item xs={8}>
                         <TextField
                             fullWidth
                             variant="outlined"
                             label="Nume"
-                            name="nume"
-                            value={userData.nume}
+                            name="lastName"
+                            value={userData.lastName}
                             onChange={handleChange}
                             style={{ marginBottom: '20px' }}
                         />
@@ -85,8 +105,8 @@ function Profile() {
                             fullWidth
                             variant="outlined"
                             label="Prenume"
-                            name="prenume"
-                            value={userData.prenume}
+                            name="firstName"
+                            value={userData.firstName}
                             onChange={handleChange}
                             style={{ marginBottom: '20px' }}
                         />
@@ -103,15 +123,15 @@ function Profile() {
                             fullWidth
                             variant="outlined"
                             label="Telefon"
-                            name="telefon"
-                            value={userData.telefon}
+                            name="phoneNumber"
+                            value={userData.phoneNumber}
                             onChange={handleChange}
                             style={{ marginBottom: '20px' }}
                         />
                     </Grid>
                 </Grid>
-                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                      <Button variant="contained" color="primary" onClick={handleSaveChanges}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '-20px' }}>
+                    <Button variant="contained" color="primary" onClick={handleSaveChanges}>
                         Salvează modificările
                     </Button>
                 </div>

@@ -14,6 +14,8 @@ function LoginSignup() {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('CLIENT');
+    const navigate = useNavigate(); // obține funcția de navigare
+
     //const navigate = useNavigate(); // uncomment this line if you need to use navigate
 
     async function save(event) {
@@ -27,23 +29,30 @@ function LoginSignup() {
                 password: password,
                 role: role,
             });
-            console.log(response);
-            alert('User registration successful');
 
             const data = response.data;
             console.log(data);
-            localStorage.setItem('id', data.id);
+
+            // Salvăm datele utilizatorului și token-ul în localStorage
+            localStorage.setItem('userId', data.id);
+            localStorage.setItem('firstName', data.firstName);
+            localStorage.setItem('lastName', data.lastName);
             localStorage.setItem('email', data.email);
-            // navigate('/main');
+            localStorage.setItem('phoneNumber', data.phoneNumber);
+            localStorage.setItem('token', data.token);
+
+            // Redirecționăm utilizatorul către pagina principală
+            navigate('/');
         } catch (err) {
             alert(err);
         }
     }
 
+
     return (
         <div className="containerSignup">
             <div className="header">
-                <div className="text">Sign Up</div>
+                <div className="titleRegister">Sign Up</div>
                 <div className="underline"></div>
             </div>
             <div className="inputs">

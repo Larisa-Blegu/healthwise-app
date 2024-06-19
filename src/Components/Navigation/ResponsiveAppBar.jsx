@@ -25,7 +25,6 @@ function ResponsiveAppBar({ show }) {
   const isRegisterPage = location.pathname === "/register";
   const isProfilePage = location.pathname === "/profile";
 
-
   const userId = localStorage.getItem('userId');
   const email = localStorage.getItem('email');
   const isLoggedIn = userId ? true : false;
@@ -73,143 +72,145 @@ function ResponsiveAppBar({ show }) {
   }
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#333' }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-              className: "app-bar-title",// Aplică clasa CSS personalizată pentru stilizarea textului
-            }}
-          >
-            HEALTHWISE
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+  <Box sx={{ mx: '20px', mt: '20px' }}>
+      <AppBar position="static" sx={{ backgroundColor: '#333' }}>
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
               sx={{
-                display: { xs: "block", md: "none" },
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+                className: "app-bar-title",// Aplică clasa CSS personalizată pentru stilizarea textului
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page, index) => (
-              <Button
-                key={page}
-                onClick={() => {
-                  onClickFunctions[index]();
+              HEALTHWISE
+            </Typography>
 
-                }}
-                sx={{ my: 2, color: "white", display: "block" }}
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
               >
-                {page}
-              </Button>
-            ))}
-          </Box>
-          {isLoggedIn && (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Admin" src={email ? null : "aa"}>
-                    {email ? email.charAt(0).toUpperCase() : ''}
-                  </Avatar>
-                </IconButton>
-              </Tooltip>
+                <MenuIcon />
+              </IconButton>
               <Menu
-                sx={{
-                  mt: "45px",
-                  "& .MuiPaper-root": {
-                    width: "180px",
-                  },
-                  "& .css-1uwgr7b-MuiTypography-root": {
-                    fontFamily: "Roboto, sans-serif",
-                  },
-                }}
                 id="menu-appbar"
-                anchorEl={anchorElUser}
+                anchorEl={anchorElNav}
                 anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
+                  vertical: "bottom",
+                  horizontal: "left",
                 }}
                 keepMounted
                 transformOrigin={{
                   vertical: "top",
-                  horizontal: "right",
+                  horizontal: "left",
                 }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
               >
-                {settings.map((setting) => (
-                  <MenuItem
-                    key={setting}
-                    onClick={() => {
-                      switch (setting) {
-                        case "Logout":
-                          logout();
-                          break;
-                        case "Profile":
-                          handleProfile();
-                          break;
-                        default:
-                          handleCloseUserMenu();
-                      }
-                    }}
-                  >
-                    <Typography textAlign="center">{setting}</Typography>
+                {pages.map((page) => (
+                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">{page}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
             </Box>
-          )}
-          {!isLoggedIn && (
-            <Box sx={{ flexGrow: 0 }}>
-              <Button color="inherit" startIcon={<LoginIcon />} onClick={() => window.location.href = "/login"}>
-                Login
-              </Button>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              {pages.map((page, index) => (
+                <Button
+                  key={page}
+                  onClick={() => {
+                    onClickFunctions[index]();
+
+                  }}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page}
+                </Button>
+              ))}
             </Box>
-          )}
-        </Toolbar>
-      </Container>
-    </AppBar>
+            {isLoggedIn && (
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar alt="Admin" src={email ? null : "aa"}>
+                      {email ? email.charAt(0).toUpperCase() : ''}
+                    </Avatar>
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{
+                    mt: "45px",
+                    "& .MuiPaper-root": {
+                      width: "180px",
+                    },
+                    "& .css-1uwgr7b-MuiTypography-root": {
+                      fontFamily: "Roboto, sans-serif",
+                    },
+                  }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map((setting) => (
+                    <MenuItem
+                      key={setting}
+                      onClick={() => {
+                        switch (setting) {
+                          case "Logout":
+                            logout();
+                            break;
+                          case "Profile":
+                            handleProfile();
+                            break;
+                          default:
+                            handleCloseUserMenu();
+                        }
+                      }}
+                    >
+                      <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>
+            )}
+            {!isLoggedIn && (
+              <Box sx={{ flexGrow: 0 }}>
+                <Button color="inherit" startIcon={<LoginIcon />} onClick={() => window.location.href = "/login"}>
+                  Login
+                </Button>
+              </Box>
+            )}
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </Box>
   );
 }
 export default ResponsiveAppBar;

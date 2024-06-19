@@ -18,6 +18,7 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { FormInput } from 'semantic-ui-react';
+import axios from 'axios';
 
 export default function AddRowAccordion({ title, fields, onSave }) {
   const [formData, setFormData] = React.useState({});
@@ -37,18 +38,42 @@ export default function AddRowAccordion({ title, fields, onSave }) {
 
   React.useEffect(() => {
     fields.forEach((field) => {
-      console.log(field.defaultValue)
       initialValues[field.name] =
         field.defaultValue ||
         (field.type === "select" ? field.options[0] : "");
     });
-    console.log(initialValues);
     setFormData(initialValues);
   }, [fields]);
 
   const handleChange = (e, field) => {
-    setFormData({ ...formData, [field]: e.target.value });
+    if (field === 'password') {
+      setFormData({ ...formData, [field]: e.target.value });
+    } else {
+      setFormData({ ...formData, [field]: e.target.value });
+    }
   };
+
+  const handleChangeValue = (e, field) => {
+    const doctor = e.target.value;
+    console.log(e.target.value);
+    axios.get(`http://localhost:8081/medicalProcedure/doctor/${doctor}`)
+    .then(response => {
+      const procedures = response.data; 
+      const updatedOptions = fields.map(f => {
+        if (f.name === "procedureName") {
+          return { ...f, options: procedures };
+        }
+        return f;
+      });
+      console.log(updatedOptions);
+      fields = updatedOptions;
+    })
+    .catch(error => {
+      console.error('Eroare la obținerea procedurilor medicale:', error);
+    });
+
+  setFormData({ ...formData, [field]: e.target.value });
+  }
 
   const handleSave = () => {
     const allFieldsFilled = Object.values(formData).every(value => value !== '');
@@ -82,7 +107,6 @@ export default function AddRowAccordion({ title, fields, onSave }) {
 
   const renderFields = () =>
     fields.map(field => {
-      console.log(formData[field.name])
       if (field.type === 'select') {
         return (
           <Select
@@ -121,6 +145,8 @@ export default function AddRowAccordion({ title, fields, onSave }) {
               }
               style={{ marginBottom: '10px', width: '500px' }}
               label="Parolă"
+              value={formData[field.name] || ''}
+              onChange={e => handleChange(e, field.name)}
             />
           </FormControl>
         )
@@ -141,10 +167,12 @@ export default function AddRowAccordion({ title, fields, onSave }) {
               max: 5,
             }}
             style={{ marginBottom: '10px', width: '500px' }}
+            onChange={e => handleChange(e, field.name)}
+
           />
         )
       }
-      else {
+      else if(field.type === "text"){
         return (
           <TextField
             key={field.name}
@@ -154,6 +182,61 @@ export default function AddRowAccordion({ title, fields, onSave }) {
             style={{ marginBottom: '10px', width: '500px' }}
             variant="outlined"
           />
+        );
+      } else if (field.type === 'date') {
+      return (
+        <div key={field.name} style={{ marginBottom: '10px', width: '500px' }}>
+          <TextField
+            label="Date"
+            type="date"
+            value={formData.date || ''}
+            onChange={e => handleChange(e, 'date')}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="outlined"
+            style={{ marginRight: '10px', width: '240px' }}
+          />
+          <TextField
+            label="Time"
+            type="time"
+            value={formData.time || ''}
+            onChange={e => handleChange(e, 'time')}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="outlined"
+            style={{ width: '240px' }}
+          />
+        </div>
+      );
+    } else if (field.type === 'email') {
+      return (
+        <TextField
+          key={field.name}
+          label={field.label}
+          type="email"
+          value={formData[field.name] || ''}
+          onChange={e => handleChange(e, field.name)}
+          style={{ marginBottom: '10px', width: '500px' }}
+          variant="outlined"
+        />
+      );
+    } else{
+        return (
+          <Select
+            key={field.name}
+            value={formData[field.name] ?? field.defaultValue}
+            onChange={e => handleChangeValue(e, field.name)}
+            style={{ marginBottom: '10px', width: '500px' }}
+            variant="outlined"
+          >
+            {field.options.map(option => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </Select>
         );
       }
     })

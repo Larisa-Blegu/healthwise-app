@@ -62,10 +62,11 @@ function ManageContact() {
                 }
             });
             console.log(response.data);
-            return response.data;
+            setDoctors(response.data);
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching specializations: ', error);
-            return [];
+            setLoading(false);
         }
     };
 
@@ -73,10 +74,7 @@ function ManageContact() {
 
     useEffect(() => {
         fetchContacts();
-        fetchDoctors().then(data => {
-            setDoctors(data);
-            setLoading(false);
-        });
+        fetchDoctors();
     }, []);
 
     const handleUpdateContact = async (updatedContact) => {
