@@ -10,15 +10,14 @@ const Footer = () => {
         <h4>Linkuri rapide</h4>
         <ul>
           <li><a href="/">Acasă</a></li>
-          <li><a href="/about">Despre noi</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><a href="/aboutUs">Despre noi</a></li>
         </ul>
       </div>
       <div className="footer-section contact">
         <h4>Contact</h4>
-        <p>Adresa: Strada Exemplu, Nr. 1, București, România</p>
-        <p>Telefon: +40 123 456 789</p>
-        <p>Email: contact@healthwise.com</p>
+        <p>Adresa: Strada Eroilor, Nr. 121, Cluj, România</p>
+        <p>Telefon: +40 744 455 5666</p>
+        <p>Email: healthwisecluj@gmail.com</p>
       </div>
       <div className="footer-section social">
         <h4>Urmărește-ne</h4>

@@ -26,7 +26,6 @@ export default function DoctorManagementGrid({
 
             if (response.status === 200) {
                 toast.success(`Statusul a fost actualizat la ${status} cu succes!`);
-                // Actualizăm și starea locală a rândului
                 setRows(prevRows =>
                     prevRows.map(row =>
                         row.id === id ? { ...row, status } : row
@@ -73,7 +72,7 @@ export default function DoctorManagementGrid({
                                             <Button
                                                 variant="contained"
                                                 color="success"
-                                                onClick={() => handleStatusChange(row.id, 'APPROVED')}
+                                                onClick={() => handleStatusChange(row.id, 'WAITING_FOR_PAYMENT')}
                                             >
                                                 APPROVE
                                             </Button>

@@ -56,12 +56,18 @@ function DoctorDashboard() {
 
         const appointments = appointmentResponse.data;
 
-        for (let appointment of appointments) {
+        const filteredAppointments = appointments.filter(appointment => {
+          const appointmentDate = new Date(appointment.date);
+          const currentDate = new Date();
+          return appointmentDate >= currentDate;
+        });
+
+        for (let appointment of filteredAppointments) {
           appointment.location = appointment.location.hospital;
           appointment.procedure = appointment.medicalProcedure.name;
         }
 
-        setAppointments(appointments);
+        setAppointments(filteredAppointments);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching appointments:", error);
@@ -80,34 +86,10 @@ function DoctorDashboard() {
   return (
     <div>
       <Grid container direction="column" justifyContent="space-around">
-        <Grid item xs={6} marginTop={2} marginLeft={3}>
-          <Typography
-            variant="h4"
-            gutterBottom
-            sx={{
-              textAlign: "left",
-              fontFamily: "Roboto, sans-serif",
-              fontWeight: 700,
-              color: "#4c657f",
-            }}
-          >
-            Doctor Dashboard
-          </Typography>
-          <Box marginBottom={4}>
-            <Typography
-              variant="body1"
-              gutterBottom
-              sx={{
-                textAlign: "left",
-                fontFamily: "Roboto, sans-serif",
-                fontWeight: 400,
-                fontSize: 17,
-                color: "#333",
-              }}
-            >
-              Here you can view and manage your appointments.
-            </Typography>
-          </Box>
+        <Grid item xs={6} marginTop={2} marginLeft={3} marginBottom={4}>
+          <div className='title-dashboard'>Panou de control</div>
+          <div className='welcome-text'>Bine ați venit în Panoul de Control al Doctorului Healthwise!</div>
+          <div className='info'> Această secțiune este creată special pentru a facilita gestionarea programărilor medicale și administrarea activităților zilnice ale doctorilor din rețeaua noastră. </div>
         </Grid>
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}

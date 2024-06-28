@@ -32,7 +32,7 @@ function Location() {
       <div className="LocationContainer">
       <ul>
           {cities.map((city, index) => (
-            <Link to={`/location/${city}`} key={index}>
+            <Link to={`/location/${city}`} key={index} className="cityLink">
               <div className="CityItem">{city}</div>
             </Link>
           ))}

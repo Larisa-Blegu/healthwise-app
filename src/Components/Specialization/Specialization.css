@@ -106,16 +106,16 @@
 text-decoration: none;
   font-size: 20px;
 position: absolute;
+margin-bottom: 60px;
 }
 .AboutLink:hover {
   color: #333; /* sau orice altă culoare dorești */
 }
-.AboutButton{
-  position: relative;
-  margin-left: 20px;
+
+.AboutButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0; /* Ajustează spațierea după preferințe */
 }
 
-.AboutButton2{
-  position: relative;
-  margin-left: -30px;
-}

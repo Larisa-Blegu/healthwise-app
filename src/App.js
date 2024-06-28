@@ -35,7 +35,8 @@ import ManageAppointment from './Components/Management/Appointment/ManageAppoint
 import Profile from './Components/Profile/Profile';
 import DoctorDashboard from './Components/ManagementDoctor/DoctorDashboard';
 import TodayAppointments from './Components/ManagementDoctor/TodayAppointments';
-import Footer from './Components/Footer/Footer'; // Importă componenta Footer
+import Footer from './Components/Footer/Footer'; 
+import AboutUs from './Components/AboutUs/AboutUs'; // Adjust the import path accordingly
 
 function App() {
   const [role, setRole] = useState(null);
@@ -75,8 +76,9 @@ function App() {
 
 
         <Routes>
-          <Route path='/profile' element={<ClientAdminElement role={role}><Profile /></ClientAdminElement>} />
+          <Route path='/profile' element={<Profile />} /> 
           <Route path='/register' element={<ClientElement role={role}><LoginSignup /></ClientElement>} />
+          <Route path='/aboutus' element={<ClientElement role={role}><AboutUs/></ClientElement>} /> {/* New About Us route */}
           <Route path='/' element={<ClientElement role={role}><Main /></ClientElement>} />
           <Route path='/doctor' element={<ClientElement role={role}><Doctor /></ClientElement>} />
           <Route path='/doctor/:id' element={<ClientElement role={role}><DoctorPage /></ClientElement>} />

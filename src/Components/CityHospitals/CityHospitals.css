@@ -2,7 +2,6 @@
     height: 400px;
 }
 
-/* CityHospitals.css */
 .map-container {
     width: 600px; /* sau orice altă valoare dorită pentru lățime */
     height: 400px; /* mențineți înălțimea inițială sau ajustați după necesitate */
@@ -30,6 +29,9 @@
     font-family: "Roboto", sans-serif;
   }
   
-  .AccordionAddress{
-    margin-left: 100px;
-  }
+.AccordionAddress{
+  color: #666;
+  font-size: 18px;
+  line-height: 1.5;
+
+}

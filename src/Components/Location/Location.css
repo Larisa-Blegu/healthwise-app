@@ -13,6 +13,12 @@
     align-items: center;    
   }
   
+
+  .cityLink {
+    text-decoration: none;
+    color: inherit;
+  }
+  
   .CityItem {
     border: 3px solid #666;
     border-radius: 8px;
@@ -28,10 +34,7 @@
     background-color: #4c657f;
   }
   
-  .CityItem:link{
-    color: black; /* Păstrează culoarea textului implicită */
-  }
-
+  
   .CityItem:hover {
     background-color: #333;
   }

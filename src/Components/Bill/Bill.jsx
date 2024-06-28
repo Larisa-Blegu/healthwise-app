@@ -91,7 +91,6 @@ function Bill() {
                                 { text: 'Realizează programare', icon: <EventIcon />, link: '/appointment' },
                                 { text: 'Programarile tale', icon: <ListAltIcon />, link: '/yourAppointments' },
                                 { text: 'Facturi', icon: <ReceiptIcon />, link: '/bill' },
-                                { text: 'Informatii Utile', icon: <InfoIcon />, link: '/usefulInfo' }
                             ].map((item, index) => (
                                 <ListItem key={item.text} disablePadding>
                                     <ListItemButton component="a" href={item.link}>

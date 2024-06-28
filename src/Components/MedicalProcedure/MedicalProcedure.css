@@ -4,10 +4,11 @@
 
 .AccordionSummaryContent {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+  justify-content: space-between; /* Așază elementele la capetele opuse ale containerului */
+  align-items: center; /* Centrează elementele pe axa transversală */
+  width: 100%; /* Asigură-te că ocupă întreaga lățime disponibilă */
 }
+
 
   .accordeonProcedure {
     display: flex;
@@ -45,4 +46,11 @@
   border: none;
   border-radius: 4px;
   text-decoration: none;
+}
+
+.SeePricesText{
+  color: #666;
+  font-size: 18px;
+  line-height: 1.5;
+
 }

@@ -1,0 +1,25 @@
+.today-appointments {
+    padding-left: 20px;
+  }
+  
+  .title {
+    text-align: left;
+    margin-left: 20px;
+  }
+  
+  .description {
+    text-align: left;
+    margin-left: 20px;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .calendar {
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+  
