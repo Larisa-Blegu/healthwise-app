@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Typography, Grid } from '@mui/material';
 import { PieChart } from '@mui/x-charts';
-import { BarChart } from '@mui/x-charts/BarChart'; // Adaugă importul pentru BarChart
+import { BarChart } from '@mui/x-charts/BarChart'; 
 import './Dashboard.css';
 import { startOfYear, endOfYear, format } from 'date-fns';
 

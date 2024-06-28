@@ -45,9 +45,7 @@ function DoctorDashboard() {
 
       console.log(response.data);
       try {
-        const appointmentResponse = await axios.get(
-          `http://localhost:8081/appointment/doctor/${response.data.id}`,
-          {
+        const appointmentResponse = await axios.get(`http://localhost:8081/appointment/doctor/${response.data.id}`,{
             headers: {
               Authorization: `Bearer ${token}`,
             },

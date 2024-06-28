@@ -14,9 +14,9 @@ import MenuItem from "@mui/material/MenuItem";
 import { useLocation } from "react-router-dom";
 import { logout } from "../Logout/Logout";
 import LoginIcon from '@mui/icons-material/Login';
-import "./ResponsiveAppBar.css"; // Importă fișierul CSS pentru stilizare personalizată
+import "./ResponsiveAppBar.css"; 
 
-const pages = ["Medici", "Specializari", "Locatii", "Programari"]; // Actualizat numele butoanelor
+const pages = ["Medici", "Specializari", "Locatii", "Programari"];
 const settings = ["Profile", "Logout"];
 
 function ResponsiveAppBar({ show }) {
@@ -66,7 +66,7 @@ function ResponsiveAppBar({ show }) {
     },
   ];
 
-  if (isLoginPage || isRegisterPage || !show) { // Verifică dacă nu trebuie să afișăm bara de navigare
+  if (isLoginPage || isRegisterPage || !show) { 
     console.log(show);
     return null;
   }
@@ -89,7 +89,7 @@ function ResponsiveAppBar({ show }) {
                 letterSpacing: ".3rem",
                 color: "inherit",
                 textDecoration: "none",
-                className: "app-bar-title",// Aplică clasa CSS personalizată pentru stilizarea textului
+                className: "app-bar-title",
               }}
             >
               HEALTHWISE

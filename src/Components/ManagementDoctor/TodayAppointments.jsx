@@ -52,10 +52,7 @@ function TodayAppointments() {
 
   const fetchAppointmentsForDate = async (date, doctorId) => {
     setLoading(true);
-    const dateInitial = format(
-      startOfDay(new Date(date)),
-      "yyyy-MM-dd'T'HH:mm:ss"
-    );
+    const dateInitial = format(startOfDay(new Date(date)), "yyyy-MM-dd'T'HH:mm:ss");
     const dateFinal = format(endOfDay(new Date(date)), "yyyy-MM-dd'T'HH:mm:ss");
     try {
       const response = await axios.get(
@@ -66,7 +63,6 @@ function TodayAppointments() {
           },
         }
       );
-      console.log(response.data);
 
       const filteredAppointments = response.data.filter(
         (app) =>

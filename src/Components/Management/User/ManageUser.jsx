@@ -15,7 +15,7 @@ import { addRow } from '../Api';
 function ManageUser() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showPassword, setShowPassword] = useState(false); // Definirea showPassword
+  const [showPassword, setShowPassword] = useState(false); 
   const token = localStorage.getItem('token');
   const roles = ['CLIENT', 'MEDIC', 'ADMIN'];
 
@@ -125,7 +125,6 @@ function ManageUser() {
     try {
       const success = await axios.post('http://localhost:8081/user/register', formData);
       if (success) {
-        // Re-fetch users or update local state
         fetchUsers();
       } else {
         console.error('Error adding new user');

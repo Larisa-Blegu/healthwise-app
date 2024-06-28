@@ -1,16 +1,17 @@
-.containerlogin{
+.containerlogin {
     display: flex;
     flex-direction: column;
     margin: auto;
-    margin-top: 30px; 
-    margin-bottom: 50px; 
+    margin-top: 30px;
+    margin-bottom: 50px;
     width: 600px;
     height: 400px;
     padding: 20px;
-    border: 2px solid #4c657f; /* Adaugă o linie gri */
-    border-radius: 10px; /* Opțional: adaugă o mică încadrare rotunjită */}
+    border: 2px solid #4c657f;
+    border-radius: 10px;
+}
 
-.header{
+.header {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,47 +21,45 @@
     margin-bottom: -10px;
 }
 
-.titleLogin{
+.titleLogin {
     color: #16535e;
     font-size: 37px;
     font-family: "Roboto", sans-serif;
     font-weight: 700;
 }
 
-.underline{
+.underline {
     width: 61px;
     height: 6px;
     background: #16535e;
     border-radius: 9px;
 }
 
-.inputs{
+.inputs {
     margin-top: 55px;
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.input{
+.input {
     display: flex;
     align-items: center;
     margin: auto;
-    width:  480px;
+    width: 480px;
     height: 60px;
     background: #fdfbfb;
     border-radius: 6px;
-    padding-left: 40px; /* Adaugă un padding la stânga de 10px */
-
+    padding-left: 40px;
 }
 
-.input img{
-    margin:0px 30px;
+.input img {
+    margin: 0px 30px;
 }
 
-
-.input input{
-    height:  50px;
-    width:  400px;
+.input input {
+    height: 50px;
+    width: 400px;
     background: transparent;
     border: none;
     outline: none;
@@ -69,16 +68,17 @@
     font-size: 19px;
 }
 
-.icon{
+.icon {
     margin-right: 15px;
 }
 
-.submit-container{
+.submit-container {
     display: flex;
-    gap:30px;
+    gap: 30px;
     margin: 30px auto;
 }
-.submit{
+
+.submit {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -93,31 +93,30 @@
     font-family: "Roboto", sans-serif;
 }
 
-.submit-btn{
+.submit-btn {
     display: flex;
-    justify-content:  center;
+    justify-content: center;
     align-items: center;
     width: 220px;
     height: 59px;
-    color:#fff;
+    color: #fff;
     background: #4c00b4;
     border-radius: 50px;
     font-size: 19px;
     font-weight: 700;
     font-family: "Roboto", sans-serif;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.forgot-password{
+.forgot-password {
     padding-left: 62px;
     margin-top: 27px;
     color: #797979;
     font-size: 18px;
     font-family: "Roboto", sans-serif;
-
 }
 
-.forgot-password span{
+.forgot-password span {
     color: #4c00b4;
     cursor: pointer;
 }

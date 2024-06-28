@@ -4,24 +4,22 @@ import axios from 'axios';
 import TablePaginationActions from './TablePaginationActions';
 import TablePagination from '@mui/material/TablePagination';
 import './Bill.css';
-import ReactPDF, { PDFDownloadLink, Document, Page, Text } from '@react-pdf/renderer'; // Importați PDFDownloadLink și alte componente necesare
-import InvoiceComponent from './InvoiceComponent';
+import ReactPDF, { PDFDownloadLink, Document, Page, Text } from '@react-pdf/renderer'; 
 import { saveAs } from 'file-saver';
 import { renderToStream } from '@react-pdf/renderer';
 import ReactDOMServer from 'react-dom/server';
-import { Link, useNavigate } from 'react-router-dom'; // importă useNavigate
+import { Link, useNavigate } from 'react-router-dom'; 
 import { Drawer, Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import EventIcon from '@mui/icons-material/Event';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import ReceiptIcon from '@mui/icons-material/Receipt';
-import InfoIcon from '@mui/icons-material/Info'
 
 function Bill() {
     const [appointments, setAppointments] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const navigate = useNavigate();
-    const token = localStorage.getItem('token'); // Obține tokenul din local storage
+    const token = localStorage.getItem('token'); 
     const [openDrawer, setOpenDrawer] = useState(false);
 
     const toggleDrawer = (open) => () => {
@@ -36,7 +34,7 @@ function Bill() {
     const fetchAppointments = (userId) => {
         axios.get(`http://localhost:8081/appointment/user/${userId}`, {
             headers: {
-                Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+                Authorization: `Bearer ${token}` 
             }
         })
             .then(async (response) => {
@@ -47,7 +45,7 @@ function Bill() {
                     try {
                         const priceResponse = await axios.get(`http://localhost:8081/price/doctorAndProcedure/${doctorId}/${procedureId}`, {
                             headers: {
-                                Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+                                Authorization: `Bearer ${token}` 
                             }
                         });
                         const price = priceResponse.data[0].price;
@@ -73,10 +71,9 @@ function Bill() {
         setPage(0);
     };
 
-    const handleDownload = async (appointment) => {
-        navigate("/invoice");
+    const handleDownload = async (appointmentId) => {
+        navigate(`/invoice/${appointmentId}`);
     }
-
 
     return (
         <div>
@@ -106,7 +103,6 @@ function Bill() {
                 </Drawer>
             </div>
 
-
             <div className="content">
                 <TableContainer component={Paper} className="bill-table-container">
                     <Table className="appointments-table">
@@ -128,9 +124,7 @@ function Bill() {
                                     <TableCell>
                                         <div className="bill-button-container">
                                             <div className="price-text">{appointment.price} RON </div>
-
-                                            <Button onClick={() => handleDownload(appointment)} className="bill-button" variant="outlined">Descarcă factură</Button>
-                                            {/* </div> </PDFDownloadLink> */}
+                                            <Button onClick={() => handleDownload(appointment.id)} className="bill-button" variant="outlined">Descarcă factură</Button>
                                         </div>
                                     </TableCell>
                                 </TableRow>

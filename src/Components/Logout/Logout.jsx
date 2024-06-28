@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie'
+import Cookies from "js-cookie";
 
 export function compareObjects(obj1, obj2) {
   const keys1 = Object.keys(obj1);
@@ -18,7 +18,7 @@ export function compareObjects(obj1, obj2) {
 }
 
 export function logout() {
-  Cookies.remove('role');
+  Cookies.remove("role");
   localStorage.clear();
-  window.location.href = '/login';
+  window.location.href = "/login";
 }

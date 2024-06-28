@@ -11,18 +11,18 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import axios from 'axios';
-import AlertDialogSlide from './AlertDialogSlide'; // Importă componenta AlertDialogSlide
+import AlertDialogSlide from './AlertDialogSlide'; 
 
 
 export default function ManagementDialog({ title, tabelConnection, operation, initialDoctors, initialConnections }) {
 
     const [open, setOpen] = React.useState(false);
     const [doctor, setDoctor] = React.useState('');
-    const [doctors, setDoctors] = React.useState([...initialDoctors].sort((a, b) => a.fullName.localeCompare(b.fullName))); // Sortează copia array-ului initialDoctors alfabetic
+    const [doctors, setDoctors] = React.useState([...initialDoctors].sort((a, b) => a.fullName.localeCompare(b.fullName))); 
     const [connection, setConnection] = React.useState('');
-    const [connections, setConnections] = React.useState([...initialConnections].sort((a, b) => (a.name || a.hospital).localeCompare(b.name || b.hospital))); // Sortează copia array-ului initialConnections alfabetic
-    const [openErrorDialog, setOpenErrorDialog] = React.useState(false); // Adăugăm stare pentru dialogul de eroare
-    const [errorDialogContent, setErrorDialogContent] = React.useState(''); // Stare pentru conținutul dialogului de eroare
+    const [connections, setConnections] = React.useState([...initialConnections].sort((a, b) => (a.name || a.hospital).localeCompare(b.name || b.hospital))); 
+    const [openErrorDialog, setOpenErrorDialog] = React.useState(false); 
+    const [errorDialogContent, setErrorDialogContent] = React.useState(''); 
 
     const handleChange = (event) => {
         setDoctor(event.target.value || '');
@@ -40,12 +40,12 @@ export default function ManagementDialog({ title, tabelConnection, operation, in
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error); // Dialog de eroare
+                    console.error('Error:', error); 
                     setOpen(false);
                     setDoctor('');
                     setConnection('');
-                    setOpenErrorDialog(true); // Deschide dialogul de eroare
-                    setErrorDialogContent('There was an error fetching data.'); // Setează conținutul dialogului de eroare
+                    setOpenErrorDialog(true); 
+                    setErrorDialogContent('There was an error fetching data.'); 
                 });
         }
     };
@@ -87,12 +87,12 @@ export default function ManagementDialog({ title, tabelConnection, operation, in
                                 setConnection('');
                             })
                             .catch(error => {
-                                console.error('Error:', error); // Dialog de eroare
+                                console.error('Error:', error); 
                                 setOpen(false);
                                 setDoctor('');
                                 setConnection('');
-                                setOpenErrorDialog(true); // Deschide dialogul de eroare
-                                setErrorDialogContent('There was an error adding data.'); // Setează conținutul dialogului de eroare
+                                setOpenErrorDialog(true); 
+                                setErrorDialogContent('There was an error adding data.'); 
                             });
                     })
                     .catch(error => {
@@ -138,7 +138,7 @@ export default function ManagementDialog({ title, tabelConnection, operation, in
 
                 axios.get(`http://localhost:8081/specialization/${connection}`)
                     .then(response => {
-                        const specializationId = response.data.id; // presupunând că obții ID-ul specializării din răspuns
+                        const specializationId = response.data.id; 
                         axios.delete(`http://localhost:8081/doctor/deleteSpecialization/${doctor}`, { data: { id: specializationId } })
                             .then(response => {
                                 console.log('Success:', response);
@@ -148,7 +148,7 @@ export default function ManagementDialog({ title, tabelConnection, operation, in
 
                             })
                             .catch(error => {
-                                console.error('Error:', error); // Mesaj de eroare
+                                console.error('Error:', error); 
                                 setOpen(false);
                                 setDoctor('');
                                 setConnection('');
@@ -167,7 +167,7 @@ export default function ManagementDialog({ title, tabelConnection, operation, in
             } else if (tabelConnection === 'Locatii') {
                 axios.get(`http://localhost:8081/location/${connection}`)
                     .then(response => {
-                        const locationId = response.data.id; // presupunând că obții ID-ul specializării din răspuns
+                        const locationId = response.data.id; 
                         axios.delete(`http://localhost:8081/doctor/deleteLocation/${doctor}`, { data: { id: locationId } })
                             .then(response => {
                                 console.log('Success:', response);
@@ -197,7 +197,6 @@ export default function ManagementDialog({ title, tabelConnection, operation, in
         }
     };
 
-
     return (
         <div>
             <Button onClick={handleClickOpen}>{title}</Button>
@@ -216,8 +215,8 @@ export default function ManagementDialog({ title, tabelConnection, operation, in
                                 MenuProps={{
                                     PaperProps: {
                                         style: {
-                                            maxHeight: '200px', // Set the maximum height for the dropdown
-                                            overflowY: 'auto', // Enable vertical scrolling
+                                            maxHeight: '200px', 
+                                            overflowY: 'auto', 
                                         },
                                     },
                                 }}
@@ -245,8 +244,8 @@ export default function ManagementDialog({ title, tabelConnection, operation, in
                                 MenuProps={{
                                     PaperProps: {
                                         style: {
-                                            maxHeight: '200px', // Set the maximum height for the dropdown
-                                            overflowY: 'auto', // Enable vertical scrolling
+                                            maxHeight: '200px', 
+                                            overflowY: 'auto', 
                                         },
                                     },
                                 }}
@@ -269,7 +268,7 @@ export default function ManagementDialog({ title, tabelConnection, operation, in
                     <Button onClick={handleSave}>Ok</Button>
                 </DialogActions>
             </Dialog>
-            <AlertDialogSlide // Încorporează componenta AlertDialogSlide pentru cazurile de eroare
+            <AlertDialogSlide 
                 open={openErrorDialog}
                 handleClose={() => setOpenErrorDialog(false)}
                 title="Error"

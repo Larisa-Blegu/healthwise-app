@@ -1,82 +1,75 @@
-
-  
-  /* Stilizare pentru radio butoane pentru a fi afișate unul lângă altul */
-  .radio-container {
-    margin-bottom: 20px; /* Spațiu între radio butoane și restul conținutului */
-  }
-  
-  .radio-container input[type="radio"] {
-    display: inline-block; /* Afișează radio butoanele pe aceeași linie */
-    margin-right: 10px; /* Spațiu între radio butoane */
-  }
-  
-
-.stepperTitle{
-    font-family: 'Roboto', sans-serif;
-    color: #555a5d;
+.radio-container {
+  margin-bottom: 20px;
 }
 
-.typeAppointment{
-    color: #414548;
-    font-family: 'Roboto', sans-serif;
-    font-size: medium;
+.radio-container input[type="radio"] {
+  display: inline-block;
+  margin-right: 10px;
 }
 
-.stepperDetails{
-    margin-top: 30px;
+.stepperTitle {
+  font-family: 'Roboto', sans-serif;
+  color: #555a5d;
 }
 
-.radioButtons{
-    display: flex;
+.typeAppointment {
+  color: #414548;
+  font-family: 'Roboto', sans-serif;
+  font-size: medium;
 }
+
+.stepperDetails {
+  margin-top: 30px;
+}
+
+.radioButtons {
+  display: flex;
+}
+
 .radioButtons div {
-    margin-right: 20px; /* Spațiu între butoanele radio */
-  }
-  
-  /* Stilizare pentru butoanele radio propriu-zise */
-  .radioButtons input[type="radio"] {
-    margin-right: 5px; /* Spațiu între butonul radio și etichetă */
-  }
+  margin-right: 20px;
+}
 
-  .description{
-    color: #666;
-    font-family: 'Roboto', sans-serif;
-    font-size: 20px;
-    line-height: 1.5;
-    margin-left: -10px;
-    margin-right: 30px;
-  }
-  /* styles.css sau orice alt nume dorești pentru fișierul tău CSS */
-  .title {
-    font-family: "Roboto", sans-serif;
-    font-size: 40px;
-    color: #4c657f;
-    font-weight: bold;
-    margin-left: 30px;
-    margin-top: 20px;
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1); 
-  }
-  
-.menu-button {
-  /* Stilurile pentru buton */
-  background-color: #3f51b5; /* Culoarea de fundal */
-  color: #fff; /* Culoarea textului */
-  padding: 10px 20px; /* Spatiere interioara */
-  border: none; /* Fara bordura */
-  border-radius: 5px; /* Rotunjire colturi */
-  cursor: pointer; /* Cursor pointer la hover */
-  transition: background-color 0.3s ease; /* Efect de tranzitie pentru schimbarea culorii de fundal */
+.radioButtons input[type="radio"] {
+  margin-right: 5px;
+}
+
+.description {
+  color: #666;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  line-height: 1.5;
+  margin-left: -10px;
+  margin-right: 30px;
+}
+
+.title {
   font-family: "Roboto", sans-serif;
+  font-size: 40px;
+  color: #4c657f;
+  font-weight: bold;
+  margin-left: 30px;
+  margin-top: 20px;
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+}
 
+.menu-button {
+  background-color: #3f51b5;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Roboto", sans-serif;
 }
 
 .menu-button:hover {
-  background-color: #303f9f; /* Schimbarea culorii de fundal la hover */
+  background-color: #303f9f;
 }
 
 .drawer {
   display: flex;
   margin-left: 23px;
-  
-}
 
+}

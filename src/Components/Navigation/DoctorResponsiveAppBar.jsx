@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useLocation } from "react-router-dom";
-import { logout } from "../Logout/Logout"; // Importează funcția de logout
+import { logout } from "../Logout/Logout"; 
 import LoginIcon from '@mui/icons-material/Login';
 
 const pages = ["Agenda"];
@@ -55,7 +55,7 @@ function DoctorResponsiveAppBar({ showMedic }) {
         }
     ];
 
-    if (isLoginPage || isRegisterPage || !showMedic) { // Verifică dacă nu trebuie să afișăm bara de navigare
+    if (isLoginPage || isRegisterPage || !showMedic) {
         return null;
     }
 

@@ -122,14 +122,12 @@ function ManageProcedure() {
 
       const specialization = response.data;
 
-      // Trimite cererea de adăugare către server
       const updatedData = {
         category: formData.category,
         name: formData.name,
-        specialization: specialization[0],  // Trimitem doar ID-ul doctorului
+        specialization: specialization[0],  
       };
 
-      // Trimite cererea de adăugare către server
       await addRow('http://localhost:8081/medicalProcedure', updatedData)
       fetchProcedures();
     } catch (error) {

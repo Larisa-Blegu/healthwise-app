@@ -10,7 +10,7 @@ import { Construction } from "@mui/icons-material";
 import "./Doctor.css";
 
 function Doctor() {
-  // Starea pentru termenul de căutare introdus de utilizator pentru fiecare câmp
+
   const [doctorName, setDoctorName] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedSpecialization, setSelectedSpecialization] = useState("");
@@ -25,21 +25,15 @@ function Doctor() {
   const [reviewsCounter, setReviewCounter] = useState({});
 
   useEffect(() => {
-    // Încărcați medicii din baza de date sau de la un API
     axios
       .get("http://localhost:8081/doctor/allDoctors")
       .then((response) => {
-        //setDoctors(response.data);
-        //  calculateAverageRating(); // Calcularea mediei notelor pentru fiecare medic
         const doctors2 = response.data;
 
-        // Parcurgem fiecare doctor și afișăm informații despre fiecare în consolă
         doctors2.forEach((doctor) => {
           doctor.image = "data:image/png;base64," + doctor.image;
-          // Poți adăuga alte informații despre doctori pe care dorești să le afișezi
         });
         setDoctors(doctors2);
-        console.log(doctors2);
       })
       .catch((error) => {
         console.error("Eroare la încărcarea datelor:", error);
@@ -65,7 +59,6 @@ function Doctor() {
   }, []);
 
   useEffect(() => {
-    // Actualizează recenziile pentru fiecare medic atunci când lista de medici este modificată
     doctors.forEach((doctor) => {
       handleReview(doctor.id).then((average) => {
         setReview((prevState) => ({
@@ -73,7 +66,6 @@ function Doctor() {
           [doctor.id]: average,
         }));
       });
-      console.log(reviews);
       handleReviewCounter(doctor.id).then((counter) => {
         setReviewCounter((prevState) => ({
           ...prevState,
@@ -82,7 +74,7 @@ function Doctor() {
       });
     });
   }, [doctors]);
-  // Funcția de căutare pentru doctor
+
   const handleDoctorSearch = (event) => {
     const name = event.target.value;
     setDoctorName(name);
@@ -118,7 +110,6 @@ function Doctor() {
           console.error("Eroare la încărcarea datelor:", error);
         });
     } else {
-      // Dacă doctorName este null sau gol, faci o cerere GET către toți doctorii
       axios
         .get("http://localhost:8081/doctor/allDoctors")
         .then((response) => {
@@ -151,13 +142,11 @@ function Doctor() {
     }
   };
 
-  // Funcția pentru selectarea orașului
   const handleCitySelect = (event) => {
     const city = event.target.value;
     setSelectedCity(city);
 
     if (city === "") {
-      // Dacă nu este selectată nicio specializare, afișează toți doctorii
       axios
         .get("http://localhost:8081/doctor/allDoctors")
         .then((response) => {
@@ -175,13 +164,11 @@ function Doctor() {
     }
   };
 
-  // Funcția pentru selectarea specializării
   const handleSpecializationSelect = (event) => {
     const name = event.target.value;
     setSelectedSpecialization(name);
 
     if (name === "") {
-      // Dacă nu este selectată nicio specializare, afișează toți doctorii
       axios
         .get("http://localhost:8081/doctor/allDoctors")
         .then((response) => {
@@ -196,14 +183,11 @@ function Doctor() {
           (specialization) => specialization.name === name
         );
       });
-
       setDoctors(filteredDoctors);
     }
   };
 
-  // Funcția de căutare pentru oraș și specializare
   const handleCitySpecializationSearch = () => {
-    // Implementează funcționalitatea de căutare pentru oraș și specializare aici
     console.log("Oraș selectat:", selectedCity);
     console.log("Specializare selectată:", selectedSpecialization);
   };
@@ -216,7 +200,7 @@ function Doctor() {
       return response.data;
     } catch (error) {
       console.error("Eroare la încărcarea datelor:", error);
-      return { average: null }; // Întoarceți null sau o altă valoare semnificativă în caz de eroare
+      return { average: null }; 
     }
   };
 
@@ -228,13 +212,12 @@ function Doctor() {
       return response.data;
     } catch (error) {
       console.error("Eroare la încărcarea datelor:", error);
-      return { counter: null }; // Întoarceți null sau o altă valoare semnificativă în caz de eroare
+      return { counter: null }; 
     }
   };
 
   return (
     <div>
-      {/* Titlu și descriere */}
       <div className="doctor-header">
         <h3>Medici</h3>
         <p>
@@ -244,7 +227,6 @@ function Doctor() {
         </p>
       </div>
 
-      {/* Căutare după numele doctorului */}
       <div className="search-box">
         <div className="search-name">
           <input
@@ -258,7 +240,6 @@ function Doctor() {
           </div>
         </div>
 
-        {/* Listele derulante pentru oraș și specializare */}
         <div>
           <select value={selectedCity} onChange={handleCitySelect}>
             <option value="">Selectează orașul</option>
@@ -280,14 +261,8 @@ function Doctor() {
             ))}
           </select>
         </div>
-
-        {/* Butonul de căutare 
-      <div className='button-search'>
-        <button onClick={handleCitySpecializationSearch}>Caută</button>
-          </div> */}
       </div>
 
-      {/* Lista de medici */}
       <div className="doctor-list">
         {doctors.map((doctor, index) => (
           <Link

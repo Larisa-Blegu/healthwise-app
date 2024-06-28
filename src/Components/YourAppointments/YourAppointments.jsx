@@ -16,9 +16,9 @@ import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
 import TableHead from '@mui/material/TableHead';
 import axios from 'axios';
-import TablePaginationActions from './TablePaginationActions'; // Asigură-te că acesta este calea corectă către fișierul care conține componenta TablePaginationActions
-import './YourAppointments.css'; // Importarea fișierului CSS
-import { Link, useNavigate } from 'react-router-dom'; // importă useNavigate
+import TablePaginationActions from './TablePaginationActions'; 
+import './YourAppointments.css'; 
+import { Link, useNavigate } from 'react-router-dom'; 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   borderBottom: 'none',
@@ -30,16 +30,15 @@ function YourAppointments() {
   const [appointments, setAppointments] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const navigate = useNavigate(); // obține funcția de navigare
+  const navigate = useNavigate(); 
   const [paymentCompleted, setPaymentCompleted] = useState(false);
-  const token = localStorage.getItem('token'); // Obține tokenul din local storage
+  const token = localStorage.getItem('token'); 
 
   const toggleDrawer = (open) => () => {
     setOpenDrawer(open);
   };
 
   useEffect(() => {
-    // Fetch appointments for the current user from the API
     const userId = localStorage.getItem('userId');
     fetchAppointments(userId);
   }, []);
@@ -47,7 +46,7 @@ function YourAppointments() {
   const fetchAppointments = (userId) => {
     fetch(`http://localhost:8081/appointment/user/${userId}`, {
       headers: {
-        Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+        Authorization: `Bearer ${token}` 
       }
     })
       .then(response => response.json())
@@ -67,21 +66,18 @@ function YourAppointments() {
   };
 
   const handlePaymentClick = (appointment) => {
-    // Implementați logica pentru acțiunea de plată aici, pe baza appointmentId
     console.log(`Payment button clicked for appointment with ID: ${appointment}`);
   };
 
   const handleReviewClick = (appointmentId) => {
-    // Implementați logica pentru acțiunea de review aici, pe baza appointmentId
     navigate(`/review/${appointmentId}`);
   };
 
   const isReviewButtonVisible = (status, reviewStatus, date) => {
     const currentDate = new Date();
-    return status === 'APPROVED' && new Date(date) < currentDate && reviewStatus === 'FALSE';
+    return status === 'APPROVED' && reviewStatus === 'FALSE';
+    //  && new Date(date) < currentDate
   };
-
-  
 
   async function makePayment(appointment) {
     console.log(appointment.doctor.id);
@@ -90,7 +86,7 @@ function YourAppointments() {
     try {
       const response = await axios.post(`http://localhost:8081/appointment/payment/${appointment.id}`, {}, {
         headers: {
-            Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+            Authorization: `Bearer ${token}` 
         }
     });
   
@@ -109,14 +105,10 @@ function YourAppointments() {
       console.error('Eroare la trimiterea cererii de programare:', error);
     }
   }
-  
 
   return (
     <div>
-      {/* Content */}
       <div className="title_specialization">Programarile tale</div>
-      {/* Appointments Table */}
-      {/* Drawer */}
       <div className='drawer'>
         <Button onClick={toggleDrawer(true)}>Deschide meniu</Button>
         <Drawer anchor="left" open={openDrawer} onClose={toggleDrawer(false)}>

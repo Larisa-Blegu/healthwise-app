@@ -2,8 +2,8 @@
     background-color: #345d70;
     color: #fff;
     padding: 40px 20px;
-    margin-left: 20px; /* adaugă margin-left */
-    margin-right: 20px; /* adaugă margin-right */
+    margin-left: 20px; 
+    margin-right: 20px; 
     display: flex;
     justify-content: space-between;
     text-align: left;
@@ -12,24 +12,24 @@
   .footer-section {
     flex: 1;
     min-width: 200px;
-    margin: 20px; /* margine adăugată pentru a separa secțiunile */
+    margin: 20px; 
   }
   
   .quick-links {
     order: 1;
-    margin-left: 10%; /* Mută secțiunea Linkuri rapide mai la dreapta */
+    margin-left: 10%; 
   }
   
   .contact {
     order: 2;
     text-align: center;
-    flex: 2; /* face secțiunea contact mai lată pentru a alinia la centru */
+    flex: 2; 
   }
   
   .social {
     order: 3;
     text-align: right;
-    margin-right: 10%; /* Mută secțiunea Urmărește-ne mai la stânga */
+    margin-right: 10%; 
   }
   
   .footer-section h4 {

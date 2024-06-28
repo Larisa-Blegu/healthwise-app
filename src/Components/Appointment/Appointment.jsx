@@ -1,27 +1,25 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Stepper, Step, StepLabel, Button, TextField, MenuItem } from '@mui/material';
-import person_icon from '../Assets/person.png';
 import EventIcon from '@mui/icons-material/Event';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import ReceiptIcon from '@mui/icons-material/Receipt';
-import InfoIcon from '@mui/icons-material/Info';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import './Appointment.css';
 import { FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Drawer, Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { StaticDatePicker } from '@mui/x-date-pickers';
-import { DigitalClock } from '@mui/x-date-pickers/DigitalClock'; // Importați DigitalClock aici
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'; // Importați LocalizationProvider aici
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'; 
 import Autocomplete from '@mui/material/Autocomplete';
 
 function Appointment() {
+
   const [activeStep, setActiveStep] = useState(0);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [location, setLocation] = useState();
   const [user, setUser] = useState();
-  const token = localStorage.getItem('token'); // Obține tokenul din local storage
+  const token = localStorage.getItem('token'); 
   const isLoggedIn = localStorage.getItem('email');
   const navigate = useNavigate();
 
@@ -34,16 +32,16 @@ function Appointment() {
     hospital: '',
     medicalProcedure: '',
     doctor: '',
-    selectedDate: null, // New state for selected date
-    selectedTime: null, // Adaugă o stare pentru ora selectată
+    selectedDate: null, 
+    selectedTime: null, 
   });
   const [cities, setCities] = useState([]);
   const [hospitals, setHospitals] = useState([]);
   const [procedures, setProcedures] = useState([]);
   const [doctors, setDoctors] = useState([]);
-  const [showClock, setShowClock] = useState(false); // State pentru afișarea ceasului digital
-  const startTime = 8; // Ora la care începe
-  const endTime = 18; // Ora la care se termină
+  const [showClock, setShowClock] = useState(false); 
+  const startTime = 8; 
+  const endTime = 18; 
   const timeSlots = Array.from(new Array((endTime - startTime) * 2)).map(
     (_, index) => {
       const hour = Math.floor(index / 2) + startTime;
@@ -54,11 +52,9 @@ function Appointment() {
   const [occupiedTimeSlots, setOccupiedTimeSlots] = useState([]);
   const isTimeSlotOccupied = (timeSlot) => occupiedTimeSlots.includes(timeSlot);
 
-
   useEffect(() => {
 
     if (!isLoggedIn) {
-      // Redirecționăm către pagina de login
       navigate('/login');
     } else {
       const selectedDoctor = JSON.parse(localStorage.getItem('selectedDoctor'));
@@ -160,7 +156,6 @@ function Appointment() {
     }));
 
 
-    // Fetch hospitals based on selected city or show all hospitals if no city selected
     fetch('http://localhost:8081/location/allLocations', {
       headers: {
         Authorization: `Bearer ${token}` 
@@ -177,7 +172,6 @@ function Appointment() {
       })
       .catch(error => console.error('Error fetching hospitals:', error));
 
-    // If no city selected, fetch all hospitals
     if (!value) {
       fetch('http://localhost:8081/location/allLocations', {
         headers: {
@@ -203,7 +197,6 @@ function Appointment() {
       [name]: value,
     }));
     fetchLocation(value);
-    // Fetch hospitals based on selected city or show all hospitals if no city selected
     fetch('http://localhost:8081/location/allLocations', {
       headers: {
         Authorization: `Bearer ${token}` 
@@ -229,11 +222,10 @@ function Appointment() {
       })
       .catch(error => console.error('Error fetching cities:', error));
 
-    // If no city selected, fetch all hospitals
     if (!value) {
       fetch('http://localhost:8081/location/allLocations', {
         headers: {
-          Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+          Authorization: `Bearer ${token}` 
         }
       })
         .then(response => response.json())
@@ -269,13 +261,12 @@ function Appointment() {
 
       fetch('http://localhost:8081/medicalProcedure/allProcedures', {
         headers: {
-          Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+          Authorization: `Bearer ${token}` 
         }
       })
         .then(response => response.json())
         .then(data => {
-          // Extract procedure names from the response
-          // const procedureNames = data.map(procedure => procedure.name);
+      
           const procedures = data;
           const newProcedures = [];
           value.specializations.forEach(specialization => {
@@ -303,27 +294,24 @@ function Appointment() {
     setFormData((prevData) => ({
       ...prevData,
       selectedDate: date,
-      selectedTime: null, // Resetează selectedTime la null la selectarea unei date noi
+      selectedTime: null, 
     }));
-    const doctorId = formData.doctor.id; // Presupun că ai doctorId disponibil în formData
-    await fetchAppointments(doctorId, date); // Așteaptă ca fetchAppointments să se termine înainte de a continua
+    const doctorId = formData.doctor.id; 
+    await fetchAppointments(doctorId, date); 
   };
-
 
   const fetchAppointments = async (doctorId, date) => {
     try {
       const response = await fetch(`http://localhost:8081/appointment/doctor/${doctorId}`, {
         headers: {
-          Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+          Authorization: `Bearer ${token}` 
         }
       });
       const data = await response.json();
       const selectedDate = date.$d;
-      console.log(selectedDate);
       const appointments = data
         .filter(appointment => {
           const appointmentDate = new Date(appointment.date);
-          // console.log(appointmentDate);
 
           return (
             appointmentDate.getFullYear() === selectedDate.getFullYear() &&
@@ -358,7 +346,7 @@ function Appointment() {
     try {
       const response = await axios.get(`http://localhost:8081/location/hospital/${hospital}`, {
         headers: {
-          Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+          Authorization: `Bearer ${token}` 
         }
       });
       location = response.data;
@@ -374,7 +362,7 @@ function Appointment() {
     try {
       const response = await axios.get(`http://localhost:8081/user/${userID}`, {
         headers: {
-          Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+          Authorization: `Bearer ${token}` 
         }
       });
       user = response.data;
@@ -390,20 +378,19 @@ function Appointment() {
       const response = await axios.post("http://localhost:8081/appointment", {
         date: finalDate,
         type: tipProgramare,
-        doctor: doctor, // Presupunând că doctor este un obiect cu un câmp id
-        location: location, // Presupunând că hospital este un obiect cu un câmp id
-        medicalProcedure: medicalProcedure, // Presupunând că medicalProcedure este un obiect cu un câmp id
-        user: user, // Presupunând că avem id-ul utilizatorului salvat în localStorage
+        doctor: doctor, 
+        location: location, 
+        medicalProcedure: medicalProcedure,
+        user: user, 
         reviewStatus: "FALSE",
         status: "PENDING"
       }, {
         headers: {
-          Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+          Authorization: `Bearer ${token}` 
         }
       });
       if (response.status === 200) {
         console.log('Cererea de programare a fost trimisă cu succes!');
-        // Aici puteți adăuga orice alte acțiuni necesare după ce cererea a fost trimisă cu succes
       } else {
         console.error('Eroare la trimiterea cererii de programare:', response.statusText);
       }
@@ -416,7 +403,7 @@ function Appointment() {
     const { doctor, hospital, medicalProcedure, selectedDate, selectedTime, tipProgramare } = formData;
     const data = new Date(selectedDate.$d);
     const year = data.getFullYear();
-    var month = data.getMonth() + 1; // Adăugăm 1 pentru că luna începe de la 0 
+    var month = data.getMonth() + 1;  
     var day = data.getDate();
     if (day < 10) {
       day = "0" + day;
@@ -426,15 +413,13 @@ function Appointment() {
     }
 
     const finalDate = year + "-" + month + "-" + day + "T" + selectedTime + ":00";
-console.log(finalDate);
-    // Verificăm dacă toate câmpurile sunt completate/selectate
+  
     if (doctor && hospital && medicalProcedure && selectedDate && selectedTime && tipProgramare) {
-      // Creăm obiectul de date pentru a fi trimis către API
       const dataToSend = {
-        doctor_id: doctor, // Presupunând că doctor este un obiect cu un câmp id
-        location_id: location, // Presupunând că hospital este un obiect cu un câmp id
-        procedure_id: medicalProcedure[0], // Presupunând că medicalProcedure este un obiect cu un câmp id
-        user_id: localStorage.userId, // Presupunând că avem id-ul utilizatorului salvat în localStorage
+        doctor_id: doctor, 
+        location_id: location, 
+        procedure_id: medicalProcedure[0], 
+        user_id: localStorage.userId, 
         type: tipProgramare,
         date: finalDate,
         reviewStatus: "FALSE",
@@ -445,17 +430,12 @@ console.log(finalDate);
     }
   };
 
-
-
   return (
     <div>
 
-
-      {/* Title */}
       <div className="title">Programari</div>
       <p className='description'>Prin intermediul sistemului nostru de programare avansat, îți oferim posibilitatea de a programa consultații, teste și alte servicii medicale într-un mod transparent și convenabil. În plus, echipa noastră dedicată este întotdeauna aici pentru a te ghida și a te sprijini în fiecare pas al drumului către sănătatea ta optimă.</p>
 
-      {/* Drawer */}
       <div className='drawer'>
         <Button onClick={toggleDrawer(true)} className="menu-button">Deschide meniu</Button>
         <Drawer anchor="left" open={openDrawer} onClose={toggleDrawer(false)}>
@@ -465,7 +445,6 @@ console.log(finalDate);
                 { text: 'Realizează programare', icon: <EventIcon />, link: '/appointment' },
                 { text: 'Programarile tale', icon: <ListAltIcon />, link: '/yourAppointments' },
                 { text: 'Facturi', icon: <ReceiptIcon />, link: '/bill' },
-                // { text: 'Informatii Utile', icon: <InfoIcon />, link: '/usefulInfo' }
               ].map((item, index) => (
                 <ListItem key={item.text} disablePadding>
                   <ListItemButton component={Link} to={item.link}>
@@ -481,7 +460,6 @@ console.log(finalDate);
         </Drawer>
       </div>
 
-      {/* Content */}
       <div className='content'>
         <div className='stepper'>
           <Stepper activeStep={activeStep} alternativeLabel>
@@ -535,7 +513,6 @@ console.log(finalDate);
                 fullWidth
                 margin="normal"
               />
-              {/* City Select */}
               <TextField
                 name="city"
                 select
@@ -552,7 +529,6 @@ console.log(finalDate);
                   </MenuItem>
                 ))}
               </TextField>
-              {/* Hospital Select */}
               <TextField
                 name="hospital"
                 select
@@ -569,7 +545,6 @@ console.log(finalDate);
                   </MenuItem>
                 ))}
               </TextField>
-              {/* Rest of the form */}
               <TextField
                 name="medicalProcedure"
                 select
@@ -586,7 +561,6 @@ console.log(finalDate);
                   </MenuItem>
                 ))}
               </TextField>
-
               <TextField
                 name="doctor"
                 select
@@ -626,11 +600,8 @@ console.log(finalDate);
                     />
                   </RadioGroup>
                 </FormControl>
-
               </div>
 
-
-              {/* Restul câmpurilor de completat */}
               <Button variant="contained" color="primary" onClick={handleNext} className='continue-button'>
                 Continuă
               </Button>

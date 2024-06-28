@@ -36,7 +36,7 @@ import Profile from './Components/Profile/Profile';
 import DoctorDashboard from './Components/ManagementDoctor/DoctorDashboard';
 import TodayAppointments from './Components/ManagementDoctor/TodayAppointments';
 import Footer from './Components/Footer/Footer'; 
-import AboutUs from './Components/AboutUs/AboutUs'; // Adjust the import path accordingly
+import AboutUs from './Components/AboutUs/AboutUs'; 
 
 function App() {
   const [role, setRole] = useState(null);
@@ -74,7 +74,6 @@ function App() {
         <AdminResponsiveAppBar showAdmin={isAdmin()} />
         <DoctorResponsiveAppBar showMedic={isMedic()} />
 
-
         <Routes>
           <Route path='/profile' element={<Profile />} /> 
           <Route path='/register' element={<ClientElement role={role}><LoginSignup /></ClientElement>} />
@@ -94,7 +93,7 @@ function App() {
           <Route path="/review/:appointmentId" element={<ClientElement role={role}><Review /></ClientElement>} />
           <Route path='/success/:id' element={<ClientElement role={role}><PaymentSuccess /></ClientElement>} />
           <Route path='/bill' element={<ClientElement role={role}><Bill /></ClientElement>} />
-          <Route path='/invoice' element={<ClientElement role={role}><Invoice /></ClientElement>} />
+          <Route path='/invoice/:appointmentId' element={<ClientElement role={role}><Invoice /></ClientElement>} />
         </Routes>
       </div>
 
@@ -127,15 +126,15 @@ function AdminElement({ role, children }) {
 }
 
 function ClientElement({ role, children }) {
-  const location = useLocation(); // Folosește useLocation pentru a obține calea curentă
+  const location = useLocation(); 
 
-  const showFooterPaths = ['/', '/doctor', '/specialization', '/location']; // Paginile pe care vrem să afișăm footer-ul
+  const showFooterPaths = ['/', '/doctor', '/specialization', '/location']; 
 
   if (role === 'CLIENT' || role === null) {
     return (
       <>
         {children}
-        {showFooterPaths.includes(location.pathname) && <Footer />} {/* Afișează footer-ul doar pentru paginile specificate */}
+        {showFooterPaths.includes(location.pathname) && <Footer />} 
       </>
     );
   } else {

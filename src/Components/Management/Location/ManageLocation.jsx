@@ -25,7 +25,6 @@ function ManageLocation() {
         { field: 'longitude', headerName: 'Longitudine', width: 200, editable: true, headerClassName: 'super-app-theme--header' }
     ];
 
-    
      const fields = [
             {
                 label: 'Adresă',
@@ -53,7 +52,6 @@ function ManageLocation() {
                 type: 'text',
             }
         ]
-
 
     const fetchLocations = async () => {
         try {
@@ -107,7 +105,6 @@ function ManageLocation() {
         try {
             const success = await addRow('http://localhost:8081/location', formData);
             if (success) {
-                // Re-fetch locations or update local state
                 fetchLocations();
             } else {
                 console.error('Error adding new location');

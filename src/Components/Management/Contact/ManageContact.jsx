@@ -70,8 +70,6 @@ function ManageContact() {
         }
     };
 
-
-
     useEffect(() => {
         fetchContacts();
         fetchDoctors();
@@ -80,7 +78,6 @@ function ManageContact() {
     const handleUpdateContact = async (updatedContact) => {
 
     };
-
 
     const handleDeleteContact = async (contactId) => {
 
@@ -92,15 +89,13 @@ function ManageContact() {
 
             const doctor = response.data;
 
-            // Trimite cererea de adăugare către server
             const updatedData = {
                 email: formData.email,
-                doctor: doctor[0],  // Trimitem doar ID-ul doctorului
+                doctor: doctor[0],  
             };
 
             const success = await addRow('http://localhost:8081/contact', updatedData);
             if (success) {
-                // Re-fetch contacts or update local state
                 fetchContacts();
             } else {
                 console.error('Error adding new contact');
@@ -109,7 +104,6 @@ function ManageContact() {
             console.error('Error adding new contact: ', error);
         }
     };
-
 
     return (
         <div>

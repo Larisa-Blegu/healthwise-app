@@ -6,14 +6,14 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Link } from "react-router-dom"; // Importați Link-ul pentru a crea legătura către /appoinment
-import "./MedicalProcedure.css"; // Importați fișierul CSS
+import { Link } from "react-router-dom"; 
+import "./MedicalProcedure.css"; 
 import person_icon from "../Assets/person.png";
 
 function MedicalProcedure() {
   const [procedures, setProcedures] = useState([]);
-  const [specialization, setSpecialization] = useState(null); // Adăugare stare pentru specializare
-  const { id } = useParams(); // obține id-ul specializării din parametrul de rută
+  const [specialization, setSpecialization] = useState(null); 
+  const { id } = useParams(); 
   const [doctors, setDoctors] = useState([]);
   const [prices, setPrice] = useState([]);
   const [expanded, setExpanded] = useState(false);
@@ -53,13 +53,12 @@ function MedicalProcedure() {
         console.error("Eroare la încărcarea procedurilor medicale:", error);
       }
     }
-    // console.log(prices2);
     setPrice(prices2);
   };
 
   const handleProcedureClick = (procedureId) => {
-    setPrice([]); // Resetează prices când se face clic pe o procedură
-    fetchPrices(doctors, procedureId); // Fetch prețurile pentru procedura respectivă
+    setPrice([]); 
+    fetchPrices(doctors, procedureId); 
   };
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -69,8 +68,6 @@ function MedicalProcedure() {
   const handleAppointmentRequest = (doctor, procedure) => {
     localStorage.setItem("selectedDoctor", JSON.stringify(doctor));
     localStorage.setItem("selectedProcedure", JSON.stringify(procedure));
-
-    // Navigăm către pagina de programare
   };
 
   return (

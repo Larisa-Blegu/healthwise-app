@@ -1,37 +1,36 @@
-.leaflet-container{
-    height: 400px;
+.leaflet-container {
+  height: 400px;
 }
 
 .map-container {
-    width: 600px; /* sau orice altă valoare dorită pentru lățime */
-    height: 400px; /* mențineți înălțimea inițială sau ajustați după necesitate */
-    margin-left: 85px;
-    background-color: #4c657f;
+  width: 600px;
+  height: 400px;
+  margin-left: 85px;
+  background-color: #4c657f;
 }
-  
 
-  .address-box {
-    padding: 10px;
-    border: 1px solid #ccc;
-    margin-left: 30px; /* spațiere între hartă și box-ul alb */
-    width: 200px; /* sau orice dimensiune dorită */
-  }
-  
-  .buttons{
-    background-color: #4c657f;
-    text-align: center;
-    
-  }
-  .buttons button {
-    margin: 0 70px; /* Adaugă spațiu între butoane */
-    margin-top: 20px;
-    color: white; /* Schimbă culoarea textului în alb */
-    font-family: "Roboto", sans-serif;
-  }
-  
-.AccordionAddress{
+.address-box {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-left: 30px;
+  width: 200px;
+}
+
+.buttons {
+  background-color: #4c657f;
+  text-align: center;
+
+}
+
+.buttons button {
+  margin: 0 70px;
+  margin-top: 20px;
+  color: white;
+  font-family: "Roboto", sans-serif;
+}
+
+.AccordionAddress {
   color: #666;
   font-size: 18px;
   line-height: 1.5;
-
 }

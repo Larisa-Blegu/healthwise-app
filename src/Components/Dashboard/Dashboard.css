@@ -1,28 +1,28 @@
-.info{
+.info {
     color: #666;
     font-size: 20px;
     font-family: "Roboto", sans-serif;
     line-height: 1.5;
-    margin-bottom: -40px; /* Spațierea între descriere și căutare */
+    margin-bottom: -40px;
     margin-left: 30px;
     margin-right: 30px;
 }
 
-.welcome-text{
+.welcome-text {
     color: #666;
     font-size: 20px;
     font-family: "Roboto", sans-serif;
     line-height: 1.5;
     margin-left: 30px;
-    margin-right: 30px;  
+    margin-right: 30px;
 }
 
-.title-dashboard{
+.title-dashboard {
     color: #666;
     font-size: 30px;
     font-family: "Roboto", sans-serif;
     line-height: 1.5;
-    margin-bottom: 10px; /* Spațierea între descriere și căutare */
+    margin-bottom: 10px;
     margin-left: 30px;
     margin-right: 30px;
 }

@@ -10,7 +10,6 @@ import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import person_icon from '../Assets/person.png';
 import './DescriptionSpecialization.css'
 
 import specialization_icon from '../Assets/DescriptionSpecialization.png';
@@ -25,7 +24,7 @@ function DescriptionSpecialization () {
   useEffect(() => {
     axios.get(`http://localhost:8081/specialization/${id}`)
       .then(response => {
-        console.log(response.data); // Verificare răspuns API
+        console.log(response.data); 
         setSpecialization(response.data);
       })
       .catch(error => {

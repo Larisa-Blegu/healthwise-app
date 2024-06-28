@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom"; // Import useHistory
+import { useParams, useNavigate } from "react-router-dom"; 
 import {
   Accordion,
   AccordionSummary,
@@ -12,11 +12,11 @@ import "./CityHospitals.css";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Icon } from "leaflet";
-import person_icon from "../Assets/person.png";
+
 
 function CityHospitals() {
   const { city } = useParams();
-  const navigate = useNavigate(); // obține funcția de navigare
+  const navigate = useNavigate(); 
 
   const [locations, setLocations] = useState([]);
   const [showMap, setShowMap] = useState(false);
@@ -24,7 +24,7 @@ function CityHospitals() {
 
   const customIcon = new Icon({
     iconUrl: "https://cdn-icons-png.flaticon.com/512/447/447031.png",
-    iconSize: [38, 38], // size of the icon
+    iconSize: [38, 38], 
   });
 
   useEffect(() => {
@@ -40,11 +40,11 @@ function CityHospitals() {
 
   const handleShowMap = (location) => {
     setSelectedLocation(location);
-    setShowMap(!showMap); // Inversăm valoarea lui showMap
+    setShowMap(!showMap); 
   };
 
   const handleViewDoctors = (locationId) => {
-    navigate(`/doctors/${locationId}`); // Navigăm către ruta specificată
+    navigate(`/doctors/${locationId}`); 
   };
 
   return (

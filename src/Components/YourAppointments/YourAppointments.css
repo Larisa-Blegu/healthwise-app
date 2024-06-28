@@ -1,67 +1,62 @@
-/* YourAppointments.css */
-
 .content {
-    margin-top: 20px;
-    width: 1000px;
-    margin-left: 270px;
+  margin-top: 20px;
+  width: 1000px;
+  margin-left: 270px;
 }
-  
-  .content h1 {
-    margin-bottom: 20px;
-  }
-  
-  .drawer {
-    margin-bottom: 20px;
-  }
-  
-  .drawer button {
-    margin-bottom: 10px;
-  }
-  
-  .drawer ul {
-    padding: 0;
-  }
-  
-  .drawer ul li {
-    list-style-type: none;
-    margin-bottom: 10px;
-  }
-  
-  .drawer ul li a {
-    text-decoration: none;
-    color: black;
-  }
-  
-  .drawer ul li a:hover {
-    color: blue;
-  }
-  
-  .right-container {
-    position: absolute;
-    right: 0;
-    display: flex;
-    align-items: center;
-  }
-  
- 
-  /* Stilizare pentru tabel */
-  .appointments-table {
-    width: 100%;
-  }
-  
-  .appointments-table th,
-  .appointments-table td {
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .appointments-table th {
-    font-weight: bold;
-    background-color: #f2f2f2;
-  }
-  
-  
-  .appointments-table tbody tr:hover {
-    background-color: #ddd;
-  }
-  
+
+.content h1 {
+  margin-bottom: 20px;
+}
+
+.drawer {
+  margin-bottom: 20px;
+}
+
+.drawer button {
+  margin-bottom: 10px;
+}
+
+.drawer ul {
+  padding: 0;
+}
+
+.drawer ul li {
+  list-style-type: none;
+  margin-bottom: 10px;
+}
+
+.drawer ul li a {
+  text-decoration: none;
+  color: black;
+}
+
+.drawer ul li a:hover {
+  color: blue;
+}
+
+.right-container {
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+}
+
+.appointments-table {
+  width: 100%;
+}
+
+.appointments-table th,
+.appointments-table td {
+  padding: 8px;
+  text-align: left;
+}
+
+.appointments-table th {
+  font-weight: bold;
+  background-color: #f2f2f2;
+}
+
+
+.appointments-table tbody tr:hover {
+  background-color: #ddd;
+}

@@ -10,7 +10,7 @@ import SaveIcon from '@mui/icons-material/CheckCircle';
 import './Review.css';
 import Rating from '@mui/material/Rating';
 import StarIcon from '@mui/icons-material/Star';
-import { Link, useNavigate } from 'react-router-dom'; // importă useNavigate
+import { Link, useNavigate } from 'react-router-dom'; 
 import { Token } from '@mui/icons-material';
 
 function Review() {
@@ -22,7 +22,7 @@ function Review() {
     const [rating, setRating] = useState('');
     const [comment, setComment] = useState('');
     const navigate = useNavigate();
-    const token = localStorage.getItem('token'); // Obține tokenul din local storage
+    const token = localStorage.getItem('token'); 
     const labels = {
         0.5: 'Useless',
         1: 'Useless+',
@@ -42,7 +42,7 @@ function Review() {
             try {
                 const appointmentResponse = await axios.get(`http://localhost:8081/appointment/${appointmentId}`, {
                     headers: {
-                      Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+                      Authorization: `Bearer ${token}` 
                     }
                   });
                 const appointment = appointmentResponse.data;
@@ -50,7 +50,7 @@ function Review() {
                 const doctorId = appointment.doctor.id;
                 const doctorResponse = await axios.get(`http://localhost:8081/doctor/${doctorId}`, {
                     headers: {
-                      Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+                      Authorization: `Bearer ${token}` 
                     }
                   });
                 const doctor = doctorResponse.data;
@@ -66,12 +66,12 @@ function Review() {
 
     const handleAddRatingClick = () => {
         setShowRatingField(true);
-        setShowCommentField(false); // Inchide celalalt textfield
+        setShowCommentField(false); 
     };
 
     const handleAddCommentClick = () => {
         setShowCommentField(true);
-        setShowRatingField(false); // Inchide celalalt textfield
+        setShowRatingField(false); 
     };
 
     function getLabelText(value) {
@@ -87,18 +87,17 @@ function Review() {
                     doctor: doctor
                 },{
                     headers: {
-                      Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+                      Authorization: `Bearer ${token}` 
                     }
                   });
                 if (response.status === 200) {
                     console.log('Cererea de programare a fost trimisă cu succes!');
                     const reviewStatus = await axios.post(`http://localhost:8081/appointment/reviewStatus/${appointmentId}/TRUE`, {}, {
                     headers: {
-                        Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+                        Authorization: `Bearer ${token}` 
                     }
                 });
                     navigate('/yourAppointments');
-                    // Aici puteți adăuga orice alte acțiuni necesare după ce cererea a fost trimisă cu succes
                 } else {
                     console.error('Eroare la trimiterea cererii de programare:', response.statusText);
                 }
@@ -120,7 +119,7 @@ function Review() {
         }
     };
 
-    const [value, setValue] = React.useState(0); // Setarea valorii implicite la 0
+    const [value, setValue] = React.useState(0); 
     const [hover, setHover] = React.useState(-1);
 
     return (
@@ -129,8 +128,6 @@ function Review() {
             <div className='title'>Review pentru {doctorName}</div>
             <p className='SpecializationDescription'>Împărtășiți-vă recenziile și părerea cu privire la consultațiile medicale pentru a ajuta alții să ia decizii informate și să găsească sprijin și inspirație în comunitatea noastră dedicată sănătății. Prin contribuția ta, poți aduce claritate, creând un mediu în care fiecare voce contează și fiecare poveste poate inspira și ajuta pe alții să se îngrijească mai bine de sănătatea lor.</p>
             <div className='box'>
-
-
                 <Box sx={{ '& > :not(style)': { m: 1 } }}>
                     <Fab color="primary" aria-label="add" onClick={handleAddRatingClick}>
                         <AddIcon />
@@ -139,7 +136,6 @@ function Review() {
                         <EditIcon />
                     </Fab>
                 </Box>
-                {/* Textbox pentru rating */}
                 {showRatingField && (
                     <Box
                         className='review-input'
@@ -172,7 +168,6 @@ function Review() {
                     </Box>
                 )}
 
-
                 {showCommentField && (
                     <div>
                         <textarea
@@ -191,9 +186,6 @@ function Review() {
                         </div>
                     </div>
                 )}
-
-                {/* Iconițe pentru adăugare rating și comentariu */}
-
             </div>
         </div>
     );

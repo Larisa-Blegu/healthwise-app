@@ -117,17 +117,14 @@ function ManageReview() {
 
       const doctor = response.data;
 
-      // Trimite cererea de adăugare către server
       const updatedData = {
         grade: formData.grade,
         text: formData.text,
-        doctor: doctor[0],  // Trimitem doar ID-ul doctorului
+        doctor: doctor[0],  
       };
-
 
       const success = await addRow('http://localhost:8081/review', updatedData);
       if (success) {
-        // Re-fetch reviews or update local state
         fetchReviews();
       } else {
         console.error('Error adding new review');

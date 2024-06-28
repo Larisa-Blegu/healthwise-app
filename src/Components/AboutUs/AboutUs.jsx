@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Container, Grid, Typography } from '@mui/material';
 
 const AboutUs = () => {
+  
   return (
     <Container maxWidth="md">
       <Box sx={{ my: 4 }}>

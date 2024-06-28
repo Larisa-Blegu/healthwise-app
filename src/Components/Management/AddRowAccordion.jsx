@@ -6,7 +6,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
-import AlertDialogSlide from './AlertDialogSlide'; // Importă componenta AlertDialogSlide pentru dialog
+import AlertDialogSlide from './AlertDialogSlide'; 
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
 import FilledInput from '@mui/material/FilledInput';
@@ -24,7 +24,7 @@ export default function AddRowAccordion({ title, fields, onSave }) {
   const [formData, setFormData] = React.useState({});
   const [openDialog, setOpenDialog] = React.useState(false);
   const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
-  const [accordionOpen, setAccordionOpen] = React.useState(false); // Inițial închis
+  const [accordionOpen, setAccordionOpen] = React.useState(false); 
   const [showPassword, setShowPassword] = React.useState(false);
   const accordionHeight = fields.length * 80;
   var initialValues = {};
@@ -34,7 +34,6 @@ export default function AddRowAccordion({ title, fields, onSave }) {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
 
   React.useEffect(() => {
     fields.forEach((field) => {
@@ -88,8 +87,8 @@ export default function AddRowAccordion({ title, fields, onSave }) {
   const handleConfirm = () => {
     onSave(formData);
     setOpenDialog(false);
-    setFormData(initialValues); // Resetează formularul la valorile implicite
-    setAccordionOpen(false); // Închide detaliile acordeonului
+    setFormData(initialValues); 
+    setAccordionOpen(false); 
   };
 
   const handleCancelErrorDialog = () => {
@@ -97,12 +96,12 @@ export default function AddRowAccordion({ title, fields, onSave }) {
   };
 
   const handleCancel = () => {
-    setFormData(initialValues); // Resetează formularul la valorile implicite
-    setAccordionOpen(false); // Închide detaliile acordeonului
+    setFormData(initialValues); 
+    setAccordionOpen(false); 
   }
 
   const toggleAccordion = () => {
-    setAccordionOpen(!accordionOpen); // Invertește starea detaliilor acordeonului
+    setAccordionOpen(!accordionOpen); 
   };
 
   const renderFields = () =>
@@ -241,7 +240,6 @@ export default function AddRowAccordion({ title, fields, onSave }) {
       }
     })
 
-
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Accordion style={{ height: "fit-content", width: "950px" }} expanded={accordionOpen}>
@@ -251,7 +249,7 @@ export default function AddRowAccordion({ title, fields, onSave }) {
           id="panel1-header"
           style={{ backgroundColor: '#4c657f', color: 'white' }}
           onClick={toggleAccordion}
-          sx={{ fontWeight: 500 }} // Adăugăm funcția pentru a deschide/acționa detaliile acordeonului
+          sx={{ fontWeight: 500 }} 
         >
           {title}
         </AccordionSummary>

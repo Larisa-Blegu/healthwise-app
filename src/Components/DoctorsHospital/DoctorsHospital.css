@@ -1,43 +1,42 @@
 .doctor-cards2 {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  .doctor-card2 {
-    background-color: #f4f4f4;
-    border-radius: 8px;
-    padding: 20px;
-    width: 300px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    border: 2px solid #ccc; /* Adaugă o linie solidă gri */
-  }
-  
-  .doctor-info2 {
-    margin-bottom: 20px; /* Adăugăm spațiu între informațiile despre doctor și poza */
-  }
-  
-  .doctor-card2 img {
-    width: 100%;
-    height: 200px ;
-    object-fit: cover;
-    margin: 0 auto; /* Mutăm imaginea în centrul orizontal al cardului */
-  }
-  
-  .doctor-card2 h3 {
-    margin-bottom: 10px;
-    font-size: 20px;
-    font-family: "Roboto", sans-serif;
-    color: #333;
-  }
-  
-  .doctor-card2 p {
-    margin-bottom: 10px;
-    font-size: 16px;
-    font-family: "Roboto", sans-serif;
-    color: #666;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.doctor-card2 {
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #ccc;
+}
+
+.doctor-info2 {
+  margin-bottom: 20px;
+}
+
+.doctor-card2 img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+.doctor-card2 h3 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-family: "Roboto", sans-serif;
+  color: #333;
+}
+
+.doctor-card2 p {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-family: "Roboto", sans-serif;
+  color: #666;
+}

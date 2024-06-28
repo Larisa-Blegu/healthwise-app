@@ -94,7 +94,6 @@ function ManageSpecialization() {
         try {
             const success = await addRow('http://localhost:8081/specialization', formData);
             if (success) {
-                // Re-fetch specializations or update local state
                 fetchSpecializations();
             } else {
                 console.error('Error adding new specialization');

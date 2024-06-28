@@ -136,20 +136,24 @@ function ManagePrice() {
             const doctor = response.data;
             console.log(doctor);
             const responseProcedure = await axios.get(`http://localhost:8081/medicalProcedure/name/${formData.procedureName}`);
-            console.log(responseProcedure.data); // Afiseaza obiectul in consola pentru a vedea structura si proprietatile
+            console.log(responseProcedure.data); 
 
             const procedure = responseProcedure.data;
 
             const updatedData = {
                 price: formData.price,
-                doctor: doctor[0],
-                medicalProcedure: procedure[0],
+                doctor: {
+                    id: doctor[0].id
+                },
+                medicalProcedure: {
+                    id: procedure[0].id
+                }
             };
+            
             console.log(updatedData);
 
             const success = await addRow('http://localhost:8081/price', updatedData);
             if (success) {
-                // Re-fetch prices or update local state
                 fetchPrices();
             } else {
                 console.error('Error adding new price');

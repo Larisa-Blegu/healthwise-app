@@ -1,41 +1,39 @@
-.LocationDescription{
-    color: #666;
-    font-size: 20px;
-    line-height: 1.5;
-    margin-bottom: 40px; /* Spațierea între descriere și căutare */
-    margin-left: 25px;
-    margin-right: 20px;
-  }
+.LocationDescription {
+  color: #666;
+  font-size: 20px;
+  line-height: 1.5;
+  margin-bottom: 40px;
+  margin-left: 25px;
+  margin-right: 20px;
+}
 
-  .LocationContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;    
-  }
-  
+.LocationContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .cityLink {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  .CityItem {
-    border: 3px solid #666;
-    border-radius: 8px;
-    padding: 10px;
-    margin: 5px;
-    font-family: "Roboto", sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    width: 400px;
-    color: white;
-    background-color: #4c657f;
-  }
-  
-  
-  .CityItem:hover {
-    background-color: #333;
-  }
-  
+
+.cityLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.CityItem {
+  border: 3px solid #666;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 5px;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  width: 400px;
+  color: white;
+  background-color: #4c657f;
+}
+
+.CityItem:hover {
+  background-color: #333;
+}

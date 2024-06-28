@@ -173,9 +173,7 @@ function ManageAppointment() {
 
   const handleUpdateAppointment = async (updatedAppointment) => {
     try {
-      console.log("Updated appointment data:", updatedAppointment); // Afișează datele de actualizare
-
-      // Implementarea pentru actualizare aici
+      console.log("Updated appointment data:", updatedAppointment); 
     } catch (error) {
       console.error("Error updating appointment:", error);
     }
@@ -200,7 +198,6 @@ function ManageAppointment() {
       const procedure = proceduresResponse.data;
       const user = usersResponse.data;
       console.log(user);
-      // Trimite cererea de adăugare către server
       const updatedData = {
         date: formData.date,
         type: formData.type,
@@ -217,7 +214,6 @@ function ManageAppointment() {
       );
 
       if (success) {
-        // Re-fetch doctors or update local state
         fetchAppointments();
       } else {
         console.error("Error adding new doctor");

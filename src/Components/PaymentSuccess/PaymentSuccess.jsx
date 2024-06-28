@@ -1,7 +1,7 @@
 import React, { useEffect} from "react";
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import {green} from '@mui/material/colors';
-import { Link, useNavigate ,useParams} from 'react-router-dom'; // importă useNavigate
+import { Link, useNavigate ,useParams} from 'react-router-dom'; 
 import {Button, Card} from '@mui/material';
 import axios from 'axios';
 
@@ -9,14 +9,12 @@ export const PaymentSuccess = () => {
 
     const navigate = useNavigate();
     const { id } = useParams();
-    const token = localStorage.getItem('token'); // Obține tokenul din local storage
-
+    const token = localStorage.getItem('token'); 
 
     useEffect(() => {
-        // Actualizează statusul programării în 'APPROVED' în baza de date
         const approvalResponse = axios.post(`http://localhost:8081/appointment/status/${id}/APPROVED`, {}, {
           headers: {
-              Authorization: `Bearer ${token}` // Adaugă tokenul în header-ul cererii
+              Authorization: `Bearer ${token}` 
           }
       });
         if (approvalResponse.status === 200) {

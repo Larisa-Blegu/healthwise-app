@@ -3,8 +3,8 @@ import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography'; // Adaugă importul pentru Typography
-import AlertDialogSlide from '../Management/AlertDialogSlide'; // Asigură-te că calea este corectă
+import Typography from '@mui/material/Typography'; 
+import AlertDialogSlide from '../Management/AlertDialogSlide'; 
 import axios from 'axios';
 import { logout } from '../Logout/Logout';
 import { compareObjects } from '../Logout/Logout';
@@ -56,7 +56,6 @@ function Profile() {
                 }
             });
             console.log("Modificările au fost salvate:", response.data);
-             // Actualizează localStorage cu noile date
             localStorage.setItem('firstName', userData.firstName);
             localStorage.setItem('lastName', userData.lastName);
             localStorage.setItem('email', userData.email);
@@ -81,7 +80,7 @@ function Profile() {
                             <Avatar
                                 alt="Avatar"
                                 src={userData.email ? null : "aa"}
-                                sx={{ width: 150, height: 150 }} // Ajustează dimensiunile avatarului
+                                sx={{ width: 150, height: 150 }} 
                             >
                                 {userData.email ? userData.email.charAt(0).toUpperCase() : ''}
                             </Avatar>
